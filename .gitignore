@@ -1,0 +1,8 @@
+node_modules/
+dist/
+coverage/
+*.zip
+.DS_Store
+
+# Local-only plan, never committed
+/plans/02-test-skills.md
