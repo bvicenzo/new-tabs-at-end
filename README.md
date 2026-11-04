@@ -26,10 +26,16 @@ How the difference is detected, and the evidence behind it, is in
 
 ## Development
 
-Enable the repository's git hooks (Conventional Commits are enforced on the commit subject):
+Requires Node 26 (see `.node-version`). `npm install` also enables the repository's git hooks, which enforce
+Conventional Commits on the commit subject.
 
 ```sh
-git config core.hooksPath .githooks
+npm install
+npm run lint           # ESLint, with the rules ported from rubocop-vicenzo
+npm run typecheck      # tsc --noEmit
+npm test               # Vitest
+npm run test:coverage  # Vitest with v8 coverage
 ```
 
-Architecture decisions live in [`docs/decisions/`](docs/decisions/).
+Architecture decisions live in [`docs/decisions/`](docs/decisions/); the lint rules and where each comes from are in
+[0006](docs/decisions/0006-lint-mapping-from-rubocop-vicenzo.md).
