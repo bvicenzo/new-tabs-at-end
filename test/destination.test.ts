@@ -1,29 +1,11 @@
-import { groupDestination, windowDestination } from '../src/destination';
+import { endOfGroupIndex } from '../src/destination';
 import { buildTab } from './support/builders';
 
 describe('destination', () => {
-  describe('windowDestination', () => {
-    context('when the tab is not in a group', () => {
-      it('is the end of the window, with no group to leave', () => {
-        const ungroupedTab = buildTab({ groupId: -1 });
-
-        expect(windowDestination(ungroupedTab)).toEqual({ index: -1, leaveGroup: false });
-      });
-    });
-
-    context('when the tab is in a group', () => {
-      it('is the end of the window, leaving the group', () => {
-        const groupedTab = buildTab({ groupId: 3 });
-
-        expect(windowDestination(groupedTab)).toEqual({ index: -1, leaveGroup: true });
-      });
-    });
-  });
-
-  describe('groupDestination', () => {
+  describe('endOfGroupIndex', () => {
     context('when the group lists no tabs', () => {
       it('is nothing', () => {
-        expect(groupDestination(7, [])).toBeNull();
+        expect(endOfGroupIndex(7, [])).toBeNull();
       });
     });
 
@@ -32,7 +14,7 @@ describe('destination', () => {
         it('is nothing', () => {
           const groupTabs = [buildTab({ id: 4, index: 2 }), buildTab({ id: 5, index: 3 })];
 
-          expect(groupDestination(7, groupTabs)).toBeNull();
+          expect(endOfGroupIndex(7, groupTabs)).toBeNull();
         });
       });
 
@@ -41,7 +23,7 @@ describe('destination', () => {
           it('is nothing', () => {
             const groupTabs = [buildTab({ id: 7, index: 2 })];
 
-            expect(groupDestination(7, groupTabs)).toBeNull();
+            expect(endOfGroupIndex(7, groupTabs)).toBeNull();
           });
         });
 
@@ -49,27 +31,27 @@ describe('destination', () => {
           it('is nothing', () => {
             const groupTabs = [buildTab({ id: 4, index: 2 }), buildTab({ id: 7, index: 3 })];
 
-            expect(groupDestination(7, groupTabs)).toBeNull();
+            expect(endOfGroupIndex(7, groupTabs)).toBeNull();
           });
         });
 
         context('and another tab holds the highest index', () => {
           context('and that tab is listed last', () => {
-            it('is that index, keeping the group', () => {
+            it('is that index', () => {
               const groupTabs = [buildTab({ id: 7, index: 2 }), buildTab({ id: 4, index: 3 })];
 
-              expect(groupDestination(7, groupTabs)).toEqual({ index: 3, leaveGroup: false });
+              expect(endOfGroupIndex(7, groupTabs)).toBe(3);
             });
           });
 
           context('but that tab is not listed last', () => {
-            it('is the highest index, keeping the group', () => {
+            it('is the highest index', () => {
               const lastOfGroup = buildTab({ id: 4, index: 4 });
               const createdTab = buildTab({ id: 7, index: 2 });
               const middleOfGroup = buildTab({ id: 5, index: 3 });
               const groupTabs = [lastOfGroup, createdTab, middleOfGroup];
 
-              expect(groupDestination(7, groupTabs)).toEqual({ index: 4, leaveGroup: false });
+              expect(endOfGroupIndex(7, groupTabs)).toBe(4);
             });
           });
         });

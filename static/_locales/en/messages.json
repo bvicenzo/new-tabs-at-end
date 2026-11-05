@@ -1,0 +1,41 @@
+{
+  "extensionName": {
+    "message": "New Tabs at End"
+  },
+  "extensionDescription": {
+    "message": "Moves only genuinely new tabs to the end of the window, leaving restored tabs and their groups alone."
+  },
+  "toggleCommand": {
+    "message": "Move the last placed tab between the end of the window and the end of its group"
+  },
+  "placementLegend": {
+    "message": "Links opened from a tab in a group go to"
+  },
+  "placementWindow": {
+    "message": "the end of the window, leaving the group"
+  },
+  "placementGroup": {
+    "message": "the end of the group"
+  },
+  "otherNewTabs": {
+    "message": "Other new tabs always go to the end of the window."
+  },
+  "shortcutHeading": {
+    "message": "Shortcut"
+  },
+  "shortcutExplanation": {
+    "message": "Moves the last placed tab to the other place:"
+  },
+  "changeShortcut": {
+    "message": "Change shortcut"
+  },
+  "shortcutNotSet": {
+    "message": "not set"
+  },
+  "saved": {
+    "message": "Saved."
+  },
+  "notSaved": {
+    "message": "Could not save. Try again."
+  }
+}

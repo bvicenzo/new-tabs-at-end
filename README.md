@@ -26,8 +26,18 @@ How the difference is detected, and the evidence behind it, is in
 [docs/decisions/0001](docs/decisions/0001-detect-new-tabs-by-empty-url.md).
 
 A link opened from a tab in a group goes to the end of the window and leaves the group; going to the end of the group
-instead is a setting ([0002](docs/decisions/0002-new-tab-placement-setting.md)), whose options page is still to come.
-What happens when Chrome refuses a move is in [0009](docs/decisions/0009-how-placement-handles-failures.md).
+instead is a setting ([0002](docs/decisions/0002-new-tab-placement-setting.md)). What happens when Chrome refuses a
+move is in [0009](docs/decisions/0009-how-placement-handles-failures.md).
+
+## Usage
+
+- **Options:** in `chrome://extensions`, open the extension's **Details** and then **Extension options**. Choose where
+  links opened from a tab in a group go: the end of the window (the default) or the end of the group.
+- **Shortcut:** `Alt+Shift+G` moves the last tab the extension placed to the other place, even when that tab is in the
+  background. It is the way to correct a single tab without changing the option
+  ([0010](docs/decisions/0010-the-toggle-acts-on-the-last-placed-tab.md)). Change the keys in
+  `chrome://extensions/shortcuts`.
+- The interface is in English and Brazilian Portuguese, following the browser's language.
 
 ## Install from source
 

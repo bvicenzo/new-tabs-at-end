@@ -1,3 +1,5 @@
+import { isClosedTabError, isDragError } from './chrome-errors';
+
 export type EditOutcome = 'done' | 'closed' | 'gaveUp';
 export type TabEdition = () => Promise<unknown>;
 
@@ -5,8 +7,6 @@ type Wait = (milliseconds: number) => Promise<void>;
 
 const DRAG_RETRY_ATTEMPTS = 20;
 const DRAG_RETRY_DELAY = 100;
-const CLOSED_TAB_ERROR = 'No tab with id';
-const DRAG_IN_PROGRESS_ERROR = 'Tabs cannot be edited right now';
 
 // Applies an edition to a tab the way Chrome allows it — a move, an ungroup, a group: retried while the user drags a
 // tab, and unnecessary once the tab is closed (docs/decisions/0008). Any other refusal rejects, so it shows in the
@@ -29,10 +29,8 @@ export class TabEditor {
   }
 
   private async recover(error: unknown, tabId: number, edition: TabEdition, attempt: number): Promise<EditOutcome> {
-    const refusal = String(error);
-
-    if (refusal.includes(CLOSED_TAB_ERROR)) return 'closed';
-    if (!refusal.includes(DRAG_IN_PROGRESS_ERROR)) throw error;
+    if (isClosedTabError(error)) return 'closed';
+    if (!isDragError(error)) throw error;
     if (attempt === DRAG_RETRY_ATTEMPTS) return this.giveUp(tabId);
 
     await this.wait(DRAG_RETRY_DELAY);

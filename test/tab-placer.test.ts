@@ -1,6 +1,6 @@
 import { TabPlacer } from '../src/tab-placer';
 import { buildTab } from './support/builders';
-import { busyQueue, editorReporting, fakeTabs, runningQueue } from './support/fakes';
+import { busyQueue, runningQueue } from './support/fakes';
 
 describe('TabPlacer', () => {
   describe('#onTabCreated', () => {
@@ -8,14 +8,14 @@ describe('TabPlacer', () => {
       it('leaves it alone, without reading the setting or queueing anything', async () => {
         const restoredTab = buildTab({ id: 7, url: 'https://example.com/restored' });
         const readPlacement = vi.fn();
-        const editor = editorReporting('done');
+        const mover = { toEndOfWindow: vi.fn(), toEndOfGroup: vi.fn() };
         const queue = busyQueue();
-        const subject = new TabPlacer({ tabs: fakeTabs({}), readPlacement, editor, queue });
+        const subject = new TabPlacer({ readPlacement, mover, memory: { remember: vi.fn() }, queue });
 
         await subject.onTabCreated(restoredTab);
 
         expect.soft(readPlacement).not.toHaveBeenCalled();
-        expect.soft(editor.edit).not.toHaveBeenCalled();
+        expect.soft(mover.toEndOfWindow).not.toHaveBeenCalled();
         expect(queue.run).not.toHaveBeenCalled();
       });
     });
@@ -24,45 +24,59 @@ describe('TabPlacer', () => {
       context('but the queue has not run its placement yet', () => {
         it('does not move it yet', async () => {
           const newTab = buildTab({ id: 7, url: '' });
-          const editor = editorReporting('done');
+          const mover = { toEndOfWindow: vi.fn(), toEndOfGroup: vi.fn() };
           const queue = busyQueue();
-          const subject = new TabPlacer({ tabs: fakeTabs({}), readPlacement: vi.fn(), editor, queue });
+          const subject = new TabPlacer({ readPlacement: vi.fn(), mover, memory: { remember: vi.fn() }, queue });
 
           await subject.onTabCreated(newTab);
 
           expect.soft(queue.run).toHaveBeenCalledOnce();
-          expect(editor.edit).not.toHaveBeenCalled();
+          expect(mover.toEndOfWindow).not.toHaveBeenCalled();
         });
       });
 
       context('and the queue runs its placement', () => {
         context('and the tab is not in a group', () => {
           context('but the move rejects', () => {
-            it('rejects with the error', async () => {
+            it('rejects with the error, remembering nothing', async () => {
               const newTab = buildTab({ id: 7, url: '', groupId: -1 });
-              const move = vi.fn().mockRejectedValue(new Error('Invalid tab index: 99.'));
-              const editor = editorReporting('done');
-              const parts = { tabs: fakeTabs({ move }), readPlacement: vi.fn(), editor, queue: runningQueue() };
-              const subject = new TabPlacer(parts);
+              const moveRefusal = new Error('Invalid tab index: 99.');
+              const mover = { toEndOfWindow: vi.fn().mockRejectedValue(moveRefusal), toEndOfGroup: vi.fn() };
+              const memory = { remember: vi.fn() };
+              const subject = new TabPlacer({ readPlacement: vi.fn(), mover, memory, queue: runningQueue() });
 
-              await expect(subject.onTabCreated(newTab)).rejects.toThrow('Invalid tab index: 99.');
+              await expect.soft(subject.onTabCreated(newTab)).rejects.toThrow('Invalid tab index: 99.');
+              expect(memory.remember).not.toHaveBeenCalled();
             });
           });
 
           context('and the move resolves', () => {
-            it('moves it to the end of the window, leaving the setting unread', async () => {
-              const newTab = buildTab({ id: 7, url: '', groupId: -1 });
-              const tabs = fakeTabs({ move: vi.fn().mockResolvedValue(undefined), ungroup: vi.fn() });
-              const readPlacement = vi.fn();
-              const editor = editorReporting('done');
-              const subject = new TabPlacer({ tabs, readPlacement, editor, queue: runningQueue() });
+            context('but remembering the tab rejects', () => {
+              it('rejects with the error', async () => {
+                const newTab = buildTab({ id: 7, url: '', groupId: -1 });
+                const mover = { toEndOfWindow: vi.fn().mockResolvedValue(undefined), toEndOfGroup: vi.fn() };
+                const memory = { remember: vi.fn().mockRejectedValue(new Error('QUOTA_BYTES quota exceeded')) };
+                const subject = new TabPlacer({ readPlacement: vi.fn(), mover, memory, queue: runningQueue() });
 
-              await subject.onTabCreated(newTab);
+                await expect(subject.onTabCreated(newTab)).rejects.toThrow('QUOTA_BYTES quota exceeded');
+              });
+            });
 
-              expect.soft(editor.edit).toHaveBeenCalledExactlyOnceWith(7, expect.any(Function));
-              expect.soft(tabs.move).toHaveBeenCalledExactlyOnceWith(7, { index: -1 });
-              expect.soft(tabs.ungroup).not.toHaveBeenCalled();
-              expect(readPlacement).not.toHaveBeenCalled();
+            context('and remembering the tab resolves', () => {
+              it('moves it to the end of the window, remembering it came from no group', async () => {
+                const newTab = buildTab({ id: 7, url: '', groupId: -1 });
+                const readPlacement = vi.fn();
+                const mover = { toEndOfWindow: vi.fn().mockResolvedValue(undefined), toEndOfGroup: vi.fn() };
+                const memory = { remember: vi.fn().mockResolvedValue(undefined) };
+                const subject = new TabPlacer({ readPlacement, mover, memory, queue: runningQueue() });
+
+                await subject.onTabCreated(newTab);
+
+                expect.soft(mover.toEndOfWindow).toHaveBeenCalledExactlyOnceWith(7, -1);
+                expect.soft(mover.toEndOfGroup).not.toHaveBeenCalled();
+                expect.soft(readPlacement).not.toHaveBeenCalled();
+                expect(memory.remember).toHaveBeenCalledExactlyOnceWith({ tabId: 7, sourceGroupId: -1 });
+              });
             });
           });
         });
@@ -70,144 +84,91 @@ describe('TabPlacer', () => {
         context('and the tab is in a group', () => {
           context('and the setting is the end of the window', () => {
             context('but the move rejects', () => {
-              it('rejects with the error, leaving the tab in its group', async () => {
+              it('rejects with the error, remembering nothing', async () => {
                 const newTab = buildTab({ id: 7, url: '', groupId: 3 });
-                const move = vi.fn().mockRejectedValue(new Error('Invalid tab index: 99.'));
-                const tabs = fakeTabs({ move, ungroup: vi.fn() });
+                const moveRefusal = new Error('Invalid tab index: 99.');
+                const mover = { toEndOfWindow: vi.fn().mockRejectedValue(moveRefusal), toEndOfGroup: vi.fn() };
+                const memory = { remember: vi.fn() };
                 const readPlacement = vi.fn().mockResolvedValue('window');
-                const parts = { tabs, readPlacement, editor: editorReporting('done'), queue: runningQueue() };
-                const subject = new TabPlacer(parts);
+                const subject = new TabPlacer({ readPlacement, mover, memory, queue: runningQueue() });
 
                 await expect.soft(subject.onTabCreated(newTab)).rejects.toThrow('Invalid tab index: 99.');
-                expect(tabs.ungroup).not.toHaveBeenCalled();
+                expect(memory.remember).not.toHaveBeenCalled();
               });
             });
 
-            context('but the move finds the tab closed', () => {
-              it('does not ungroup it', async () => {
-                const newTab = buildTab({ id: 7, url: '', groupId: 3 });
-                const tabs = fakeTabs({ move: vi.fn().mockResolvedValue(undefined), ungroup: vi.fn() });
-                const readPlacement = vi.fn().mockResolvedValue('window');
-                const parts = { tabs, readPlacement, editor: editorReporting('closed'), queue: runningQueue() };
-                const subject = new TabPlacer(parts);
-
-                await subject.onTabCreated(newTab);
-
-                expect(tabs.ungroup).not.toHaveBeenCalled();
-              });
-            });
-
-            context('but the move gives up', () => {
-              it('does not ungroup it', async () => {
-                const newTab = buildTab({ id: 7, url: '', groupId: 3 });
-                const tabs = fakeTabs({ move: vi.fn().mockResolvedValue(undefined), ungroup: vi.fn() });
-                const readPlacement = vi.fn().mockResolvedValue('window');
-                const parts = { tabs, readPlacement, editor: editorReporting('gaveUp'), queue: runningQueue() };
-                const subject = new TabPlacer(parts);
-
-                await subject.onTabCreated(newTab);
-
-                expect(tabs.ungroup).not.toHaveBeenCalled();
-              });
-            });
-
-            context('and the move is done', () => {
-              context('but the ungroup rejects', () => {
+            context('and the move resolves', () => {
+              context('but remembering the tab rejects', () => {
                 it('rejects with the error', async () => {
                   const newTab = buildTab({ id: 7, url: '', groupId: 3 });
-                  const ungroup = vi.fn().mockRejectedValue(new Error('Tab 7 is not in a group.'));
-                  const tabs = fakeTabs({ move: vi.fn().mockResolvedValue(undefined), ungroup });
+                  const mover = { toEndOfWindow: vi.fn().mockResolvedValue(undefined), toEndOfGroup: vi.fn() };
+                  const memory = { remember: vi.fn().mockRejectedValue(new Error('QUOTA_BYTES quota exceeded')) };
                   const readPlacement = vi.fn().mockResolvedValue('window');
-                  const parts = { tabs, readPlacement, editor: editorReporting('done'), queue: runningQueue() };
-                  const subject = new TabPlacer(parts);
+                  const subject = new TabPlacer({ readPlacement, mover, memory, queue: runningQueue() });
 
-                  await expect(subject.onTabCreated(newTab)).rejects.toThrow('Tab 7 is not in a group.');
+                  await expect(subject.onTabCreated(newTab)).rejects.toThrow('QUOTA_BYTES quota exceeded');
                 });
               });
 
-              context('and the ungroup resolves', () => {
-                it('moves it to the end of the window, then out of its group', async () => {
+              context('and remembering the tab resolves', () => {
+                it('moves it to the end of the window, remembering its source group', async () => {
                   const newTab = buildTab({ id: 7, url: '', groupId: 3 });
-                  const move = vi.fn().mockResolvedValue(undefined);
-                  const ungroup = vi.fn().mockResolvedValue(undefined);
                   const readPlacement = vi.fn().mockResolvedValue('window');
-                  const editor = editorReporting('done');
-                  const parts = { tabs: fakeTabs({ move, ungroup }), readPlacement, editor, queue: runningQueue() };
-                  const subject = new TabPlacer(parts);
+                  const mover = { toEndOfWindow: vi.fn().mockResolvedValue(undefined), toEndOfGroup: vi.fn() };
+                  const memory = { remember: vi.fn().mockResolvedValue(undefined) };
+                  const subject = new TabPlacer({ readPlacement, mover, memory, queue: runningQueue() });
 
                   await subject.onTabCreated(newTab);
 
-                  expect.soft(editor.edit).toHaveBeenCalledTimes(2);
-                  expect.soft(move).toHaveBeenCalledExactlyOnceWith(7, { index: -1 });
-                  expect.soft(ungroup).toHaveBeenCalledExactlyOnceWith(7);
-                  expect(move).toHaveBeenCalledBefore(ungroup);
+                  expect.soft(mover.toEndOfWindow).toHaveBeenCalledExactlyOnceWith(7, 3);
+                  expect.soft(mover.toEndOfGroup).not.toHaveBeenCalled();
+                  expect(memory.remember).toHaveBeenCalledExactlyOnceWith({ tabId: 7, sourceGroupId: 3 });
                 });
               });
             });
           });
 
           context('and the setting is the end of the group', () => {
-            context('but the group cannot be listed', () => {
-              it('rejects with the error, leaving the tab in place', async () => {
+            context('but the move rejects', () => {
+              it('rejects with the error, remembering nothing', async () => {
                 const newTab = buildTab({ id: 7, url: '', groupId: 3 });
-                const query = vi.fn().mockRejectedValue(new Error('No group with id: 3.'));
-                const tabs = fakeTabs({ query, move: vi.fn() });
+                const moveRefusal = new Error('Invalid tab index: 99.');
+                const mover = { toEndOfGroup: vi.fn().mockRejectedValue(moveRefusal), toEndOfWindow: vi.fn() };
+                const memory = { remember: vi.fn() };
                 const readPlacement = vi.fn().mockResolvedValue('group');
-                const parts = { tabs, readPlacement, editor: editorReporting('done'), queue: runningQueue() };
-                const subject = new TabPlacer(parts);
+                const subject = new TabPlacer({ readPlacement, mover, memory, queue: runningQueue() });
 
-                await expect.soft(subject.onTabCreated(newTab)).rejects.toThrow('No group with id: 3.');
-                expect(tabs.move).not.toHaveBeenCalled();
+                await expect.soft(subject.onTabCreated(newTab)).rejects.toThrow('Invalid tab index: 99.');
+                expect(memory.remember).not.toHaveBeenCalled();
               });
             });
 
-            context('and the group is listed', () => {
-              context('but it gives the tab no destination', () => {
-                it('leaves the tab in place', async () => {
-                  const newTab = buildTab({ id: 7, index: 4, url: '', groupId: 3 });
-                  const groupTabs = [buildTab({ id: 4, index: 3 }), buildTab({ id: 7, index: 4 })];
-                  const tabs = fakeTabs({ query: vi.fn().mockResolvedValue(groupTabs), move: vi.fn() });
+            context('and the move resolves', () => {
+              context('but remembering the tab rejects', () => {
+                it('rejects with the error', async () => {
+                  const newTab = buildTab({ id: 7, url: '', groupId: 3 });
+                  const mover = { toEndOfGroup: vi.fn().mockResolvedValue(undefined), toEndOfWindow: vi.fn() };
+                  const memory = { remember: vi.fn().mockRejectedValue(new Error('QUOTA_BYTES quota exceeded')) };
                   const readPlacement = vi.fn().mockResolvedValue('group');
-                  const parts = { tabs, readPlacement, editor: editorReporting('done'), queue: runningQueue() };
-                  const subject = new TabPlacer(parts);
+                  const subject = new TabPlacer({ readPlacement, mover, memory, queue: runningQueue() });
 
-                  await subject.onTabCreated(newTab);
-
-                  expect.soft(tabs.query).toHaveBeenCalledWith({ groupId: 3 });
-                  expect(tabs.move).not.toHaveBeenCalled();
+                  await expect(subject.onTabCreated(newTab)).rejects.toThrow('QUOTA_BYTES quota exceeded');
                 });
               });
 
-              context('and it gives the tab a destination', () => {
-                context('but the move rejects', () => {
-                  it('rejects with the error', async () => {
-                    const newTab = buildTab({ id: 7, index: 3, url: '', groupId: 3 });
-                    const groupTabs = [buildTab({ id: 7, index: 3 }), buildTab({ id: 4, index: 4 })];
-                    const move = vi.fn().mockRejectedValue(new Error('Invalid tab index: 4.'));
-                    const tabs = fakeTabs({ query: vi.fn().mockResolvedValue(groupTabs), move });
-                    const readPlacement = vi.fn().mockResolvedValue('group');
-                    const parts = { tabs, readPlacement, editor: editorReporting('done'), queue: runningQueue() };
-                    const subject = new TabPlacer(parts);
+              context('and remembering the tab resolves', () => {
+                it('moves it to the end of its group, remembering its source group', async () => {
+                  const newTab = buildTab({ id: 7, url: '', groupId: 3 });
+                  const readPlacement = vi.fn().mockResolvedValue('group');
+                  const mover = { toEndOfGroup: vi.fn().mockResolvedValue(undefined), toEndOfWindow: vi.fn() };
+                  const memory = { remember: vi.fn().mockResolvedValue(undefined) };
+                  const subject = new TabPlacer({ readPlacement, mover, memory, queue: runningQueue() });
 
-                    await expect(subject.onTabCreated(newTab)).rejects.toThrow('Invalid tab index: 4.');
-                  });
-                });
+                  await subject.onTabCreated(newTab);
 
-                context('and the move resolves', () => {
-                  it('moves it to the end of its group', async () => {
-                    const newTab = buildTab({ id: 7, index: 3, url: '', groupId: 3 });
-                    const groupTabs = [buildTab({ id: 7, index: 3 }), buildTab({ id: 4, index: 4 })];
-                    const move = vi.fn().mockResolvedValue(undefined);
-                    const tabs = fakeTabs({ query: vi.fn().mockResolvedValue(groupTabs), move, ungroup: vi.fn() });
-                    const readPlacement = vi.fn().mockResolvedValue('group');
-                    const parts = { tabs, readPlacement, editor: editorReporting('done'), queue: runningQueue() };
-                    const subject = new TabPlacer(parts);
-
-                    await subject.onTabCreated(newTab);
-
-                    expect.soft(tabs.move).toHaveBeenCalledExactlyOnceWith(7, { index: 4 });
-                    expect(tabs.ungroup).not.toHaveBeenCalled();
-                  });
+                  expect.soft(mover.toEndOfGroup).toHaveBeenCalledExactlyOnceWith(7, 3);
+                  expect.soft(mover.toEndOfWindow).not.toHaveBeenCalled();
+                  expect(memory.remember).toHaveBeenCalledExactlyOnceWith({ tabId: 7, sourceGroupId: 3 });
                 });
               });
             });

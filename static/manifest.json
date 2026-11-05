@@ -1,9 +1,29 @@
 {
   "manifest_version": 3,
-  "name": "New Tabs at End",
+  "name": "__MSG_extensionName__",
   "version": "0.0.0",
-  "description": "Moves only genuinely new tabs to the end of the window, leaving restored tabs and their groups alone.",
+  "description": "__MSG_extensionDescription__",
+  "default_locale": "en",
   "minimum_chrome_version": "102",
-  "permissions": ["tabs", "tabGroups", "storage"],
-  "background": { "service_worker": "background.js", "type": "module" }
+  "permissions": [
+    "tabs",
+    "tabGroups",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
+  "commands": {
+    "toggle-placement": {
+      "suggested_key": {
+        "default": "Alt+Shift+G"
+      },
+      "description": "__MSG_toggleCommand__"
+    }
+  }
 }

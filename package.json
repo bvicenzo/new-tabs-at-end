@@ -8,7 +8,7 @@
     "node": ">=26"
   },
   "scripts": {
-    "build": "esbuild src/background.ts --bundle --format=esm --outdir=dist && cp -r static/. dist/",
+    "build": "rm -rf dist && esbuild src/background.ts src/options.ts --bundle --format=esm --outdir=dist && cp -r static/. dist/",
     "lint": "eslint .",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
@@ -27,6 +27,7 @@
     "esbuild": "^0.28.2",
     "eslint": "^10.14.0",
     "globals": "^17.14.0",
+    "happy-dom": "^21.0.4",
     "jiti": "^2.7.0",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.72.1",

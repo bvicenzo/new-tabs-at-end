@@ -1,17 +1,19 @@
-import { type Destination, groupDestination, TAB_GROUP_ID_NONE, windowDestination } from './destination';
+import { TAB_GROUP_ID_NONE } from './destination';
 import { isNewTab, type PlaceableTab } from './new-tab';
+import type { PlacedTabMemory } from './placed-tab-memory';
 import type { SerialQueue } from './serial-queue';
 import type { Placement } from './settings';
-import type { TabEditor } from './tab-editor';
+import type { TabMover } from './tab-mover';
 
 interface TabPlacerParts {
-  tabs: Pick<typeof chrome.tabs, 'query' | 'move' | 'ungroup'>;
   readPlacement: () => Promise<Placement>;
-  editor: Pick<TabEditor, 'edit'>;
+  mover: Pick<TabMover, 'toEndOfWindow' | 'toEndOfGroup'>;
+  memory: Pick<PlacedTabMemory, 'remember'>;
   queue: Pick<SerialQueue, 'run'>;
 }
 
-// Moves each new tab to the end of the window, or of its group when the setting says so (docs/decisions/0002).
+// Moves each new tab to the end of the window, or of its group when the setting says so (docs/decisions/0002), and
+// remembers it for the toggle shortcut.
 export class TabPlacer {
   constructor(private readonly parts: TabPlacerParts) {}
 
@@ -21,26 +23,18 @@ export class TabPlacer {
     await this.parts.queue.run(() => this.place(createdTab));
   }
 
-  // The tab is moved before it leaves its group: a failure in between leaves it at the end, not out of its group.
   private async place(newTab: PlaceableTab): Promise<void> {
-    const destination = await this.destinationOf(newTab);
-
-    if (!destination) return;
-
-    const { tabs, editor } = this.parts;
-    const moveOutcome = await editor.edit(newTab.id, () => tabs.move(newTab.id, { index: destination.index }));
-
-    if (moveOutcome === 'done' && destination.leaveGroup) await editor.edit(newTab.id, () => tabs.ungroup(newTab.id));
+    await this.move(newTab);
+    await this.parts.memory.remember({ tabId: newTab.id, sourceGroupId: newTab.groupId });
   }
 
   // The setting only concerns a tab opened inside a group; any other new tab goes to the end of the window.
-  private async destinationOf(newTab: PlaceableTab): Promise<Destination | null> {
-    const isGrouped = newTab.groupId !== TAB_GROUP_ID_NONE;
+  private async move({ id, groupId }: PlaceableTab): Promise<void> {
+    const { readPlacement, mover } = this.parts;
+    const isGrouped = groupId !== TAB_GROUP_ID_NONE;
 
-    if (!isGrouped || await this.parts.readPlacement() === 'window') return windowDestination(newTab);
+    if (!isGrouped || await readPlacement() === 'window') return mover.toEndOfWindow(id, groupId);
 
-    const groupTabs = await this.parts.tabs.query({ groupId: newTab.groupId });
-
-    return groupDestination(newTab.id, groupTabs);
+    return mover.toEndOfGroup(id, groupId);
   }
 }

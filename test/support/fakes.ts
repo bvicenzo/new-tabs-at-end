@@ -3,15 +3,23 @@ import type { Mock } from 'vitest';
 import type { SerialQueue } from '../../src/serial-queue';
 import type { EditOutcome, TabEdition, TabEditor } from '../../src/tab-editor';
 
-type TabsMethod = 'move' | 'ungroup' | 'query';
+type TabsMethod = 'move' | 'ungroup' | 'group' | 'query' | 'get' | 'create';
 
 // chrome.tabs declares overloads a vi.fn() cannot satisfy; the fake carries only the methods an example is about.
 export function fakeTabs(methods: Partial<Record<TabsMethod, Mock>>): typeof chrome.tabs {
   return methods as unknown as typeof chrome.tabs;
 }
 
-export function fakeStorage(get: Mock): chrome.storage.StorageArea {
-  return { get } as unknown as chrome.storage.StorageArea;
+export function fakeStorage(methods: { get?: Mock; set?: Mock }): chrome.storage.StorageArea {
+  return methods as unknown as chrome.storage.StorageArea;
+}
+
+export function fakeTabGroups(get: Mock): typeof chrome.tabGroups {
+  return { get } as unknown as typeof chrome.tabGroups;
+}
+
+export function fakeCommands(getAll: Mock): typeof chrome.commands {
+  return { getAll } as unknown as typeof chrome.commands;
 }
 
 // A queue that runs each task as soon as it is queued.
@@ -40,14 +48,20 @@ export function refusedThenAccepted(refusal: Error, times: number): Mock {
 }
 
 interface ChromeFakeParts {
-  addListener: Mock;
-  move: Mock;
-  ungroup: Mock;
-  query: Mock;
+  onTabCreated: Mock;
+  onCommand: Mock;
+  tabs: Partial<Record<TabsMethod, Mock>>;
+  tabGroupsGet: Mock;
   syncGet: Mock;
+  session: { get: Mock; set: Mock };
 }
 
 // The parts of the `chrome` global the background script wires.
-export function buildChromeFake({ addListener, move, ungroup, query, syncGet }: ChromeFakeParts): unknown {
-  return { tabs: { onCreated: { addListener }, move, ungroup, query }, storage: { sync: { get: syncGet } } };
+export function buildChromeFake({ onTabCreated, onCommand, tabs, tabGroupsGet, syncGet, session }: ChromeFakeParts) {
+  return {
+    tabs: { ...tabs, onCreated: { addListener: onTabCreated } },
+    tabGroups: { get: tabGroupsGet },
+    commands: { onCommand: { addListener: onCommand } },
+    storage: { sync: { get: syncGet }, session }
+  };
 }

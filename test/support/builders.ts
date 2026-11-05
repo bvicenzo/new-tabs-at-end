@@ -18,3 +18,7 @@ export function buildTab(overrides: Partial<chrome.tabs.Tab> = {}): chrome.tabs.
     ...overrides
   };
 }
+
+export function buildTabGroup(overrides: Partial<chrome.tabGroups.TabGroup> = {}): chrome.tabGroups.TabGroup {
+  return { id: 3, windowId: 1, collapsed: false, color: 'grey', shared: false, ...overrides };
+}

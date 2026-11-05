@@ -151,3 +151,14 @@ Ambos com commits em Conventional Commits, sem atribuição de IA, e PR em ingl�
 | (PR B) a página de opções em pt-BR e em inglês (`--lang`) | grava a escolha, e a escolha sobrevive a recarregar a página |
 
 **Por fim:** você carrega o `dist/` no seu Chrome e testa o uso real antes do merge.
+
+## Revisões durante a execução
+
+- **PR A:** a árvore do `TabEditor` repetia a mesma subárvore para move e ungroup, e repetiria para o group. O editor
+  passou a ter um só `edit(tabId, edição)`.
+- **PR B:**
+  - **`TabMover`:** os três movimentos (fim da janela, fim do grupo, entrar no grupo) saíram do `TabPlacer` para essa
+    peça, usada também pelo atalho. Com isso, `windowDestination` e `groupDestination` deram lugar a `endOfGroupIndex`.
+  - **`chrome-errors`:** o reconhecimento das mensagens de erro do Chrome fica num módulo só, usado pelo editor e pelo
+    atalho.
+  - **Semântica do atalho:** foi para uma ADR nova, a 0010, em vez de editar a 0009.

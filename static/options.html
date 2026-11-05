@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title data-message="extensionName">New Tabs at End</title>
+    <style>
+      :root { color-scheme: light dark; }
+      body { font: 14px system-ui, sans-serif; margin: 16px; min-width: 360px; }
+      fieldset { border: none; margin: 0 0 8px; padding: 0; }
+      legend { font-weight: 600; margin-bottom: 8px; padding: 0; }
+      label { display: block; margin: 6px 0; }
+      h2 { font-size: 14px; margin: 20px 0 8px; }
+      p { margin: 6px 0; }
+      .hint { opacity: 0.75; }
+      #status { min-height: 1.4em; }
+      kbd { font: inherit; font-weight: 600; }
+    </style>
+  </head>
+  <body>
+    <fieldset>
+      <legend data-message="placementLegend">Links opened from a tab in a group go to</legend>
+      <label>
+        <input type="radio" name="placement" value="window">
+        <span data-message="placementWindow">the end of the window, leaving the group</span>
+      </label>
+      <label>
+        <input type="radio" name="placement" value="group">
+        <span data-message="placementGroup">the end of the group</span>
+      </label>
+    </fieldset>
+    <p class="hint" data-message="otherNewTabs">Other new tabs always go to the end of the window.</p>
+    <p id="status" role="status"></p>
+
+    <h2 data-message="shortcutHeading">Shortcut</h2>
+    <p>
+      <span data-message="shortcutExplanation">Moves the last placed tab to the other place:</span>
+      <kbd id="shortcut"></kbd>
+    </p>
+    <button id="change-shortcut" type="button" data-message="changeShortcut">Change shortcut</button>
+
+    <script type="module" src="options.js"></script>
+  </body>
+</html>

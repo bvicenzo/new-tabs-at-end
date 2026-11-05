@@ -20,3 +20,7 @@ export async function readPlacement(storage: Pick<chrome.storage.StorageArea, 'g
     return DEFAULT_PLACEMENT;
   }
 }
+
+export async function writePlacement(storage: Pick<chrome.storage.StorageArea, 'set'>, placement: Placement) {
+  await storage.set({ placement });
+}

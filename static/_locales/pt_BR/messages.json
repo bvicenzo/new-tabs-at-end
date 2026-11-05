@@ -1,0 +1,41 @@
+{
+  "extensionName": {
+    "message": "New Tabs at End"
+  },
+  "extensionDescription": {
+    "message": "Move só as abas realmente novas para o fim da janela, sem mexer nas abas restauradas nem nos seus grupos."
+  },
+  "toggleCommand": {
+    "message": "Alternar a última aba posicionada entre o fim da janela e o fim do grupo"
+  },
+  "placementLegend": {
+    "message": "Links abertos de uma aba em um grupo vão para"
+  },
+  "placementWindow": {
+    "message": "o fim da janela, saindo do grupo"
+  },
+  "placementGroup": {
+    "message": "o fim do grupo"
+  },
+  "otherNewTabs": {
+    "message": "As outras abas novas sempre vão para o fim da janela."
+  },
+  "shortcutHeading": {
+    "message": "Atalho"
+  },
+  "shortcutExplanation": {
+    "message": "Leva a última aba posicionada para o outro lugar:"
+  },
+  "changeShortcut": {
+    "message": "Alterar atalho"
+  },
+  "shortcutNotSet": {
+    "message": "não definido"
+  },
+  "saved": {
+    "message": "Salvo."
+  },
+  "notSaved": {
+    "message": "Não foi possível salvar. Tente de novo."
+  }
+}
