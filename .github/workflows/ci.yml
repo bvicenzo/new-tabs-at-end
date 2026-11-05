@@ -35,6 +35,8 @@ jobs:
       # Runs the whole suite, so it stands in for `npm test`; fails below 100% coverage per file.
       - run: npm run test:coverage
 
+      - run: npm run build
+
   pr-title:
     name: Conventional Commit title
     if: github.event_name == 'pull_request'

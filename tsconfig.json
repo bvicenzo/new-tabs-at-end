@@ -9,7 +9,7 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
-    "types": ["node", "vitest/globals"]
+    "types": ["node", "vitest/globals", "chrome"]
   },
   "include": ["src", "test", "eslint-plugin-vicenzo", "eslint.config.ts", "vitest.config.ts"]
 }

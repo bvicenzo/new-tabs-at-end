@@ -8,12 +8,20 @@ import vicenzo from './eslint-plugin-vicenzo/index';
 
 // The mapping from rubocop-vicenzo and its style.yml to these rules is in docs/decisions/0006.
 const TEST_FILES = ['**/*.test.ts'];
+const STYLISTIC_FORMATTING = {
+  indent: 2,
+  quotes: 'single',
+  semi: true,
+  commaDangle: 'never',
+  arrowParens: true,
+  braceStyle: '1tbs'
+} as const;
 
 export default defineConfig(
   { ignores: ['node_modules/', 'dist/', 'coverage/'] },
   eslint.configs.recommended,
   tseslint.configs.recommendedTypeChecked,
-  stylistic.configs.customize({ indent: 2, quotes: 'single', semi: true, commaDangle: 'never', arrowParens: true }),
+  stylistic.configs.customize(STYLISTIC_FORMATTING),
   {
     languageOptions: { parserOptions: { projectService: true, tsconfigRootDir: import.meta.dirname } },
     plugins: { vicenzo },

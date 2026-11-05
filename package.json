@@ -8,6 +8,7 @@
     "node": ">=26"
   },
   "scripts": {
+    "build": "esbuild src/background.ts --bundle --format=esm --outdir=dist && cp -r static/. dist/",
     "lint": "eslint .",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
@@ -17,16 +18,24 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
+    "@types/chrome": "^0.3.7",
     "@types/node": "^26.6.6",
     "@typescript-eslint/typescript-estree": "^8.72.1",
     "@typescript-eslint/utils": "^8.72.1",
     "@vitest/coverage-v8": "^5.1.0",
     "@vitest/eslint-plugin": "^1.6.28",
+    "esbuild": "^0.28.2",
     "eslint": "^10.14.0",
     "globals": "^17.14.0",
     "jiti": "^2.7.0",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.72.1",
     "vitest": "^5.1.0"
+  },
+  "allowScripts": {
+    "esbuild": false
+  },
+  "overrides": {
+    "minimatch": "^11.0.1"
   }
 }

@@ -1,0 +1,9 @@
+{
+  "manifest_version": 3,
+  "name": "New Tabs at End",
+  "version": "0.0.0",
+  "description": "Moves only genuinely new tabs to the end of the window, leaving restored tabs and their groups alone.",
+  "minimum_chrome_version": "102",
+  "permissions": ["tabs", "tabGroups", "storage"],
+  "background": { "service_worker": "background.js", "type": "module" }
+}
