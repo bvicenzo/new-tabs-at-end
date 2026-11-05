@@ -1,16 +1,17 @@
-import { Linter } from 'eslint';
+import type { TSESLint } from '@typescript-eslint/utils';
+import { type Rule, Linter } from 'eslint';
 import { parser } from 'typescript-eslint';
 
-import plugin from '../../index';
+type NamedRule = TSESLint.RuleModule<string, readonly unknown[]> & { name: string };
 
-// Lints `code` with a single rule of the plugin enabled, as if it were a Vitest file.
-export function lintWithRule(ruleName: string, code: string, ruleOptions: unknown[] = []): Linter.LintMessage[] {
+// Lints `code` as a Vitest file with only `rule` on, registered as `vicenzo/<its name>`.
+export function lintWithRule(rule: NamedRule, code: string, ruleOptions: unknown[] = []): Linter.LintMessage[] {
   const linter = new Linter({ configType: 'flat' });
   const config: Linter.Config = {
     files: ['**/*.ts'],
     languageOptions: { parser },
-    plugins: { vicenzo: plugin as unknown as NonNullable<Linter.Config['plugins']>[string] },
-    rules: { [`vicenzo/${ruleName}`]: ['error', ...ruleOptions] }
+    plugins: { vicenzo: { rules: { [rule.name]: rule as unknown as Rule.RuleModule } } },
+    rules: { [`vicenzo/${rule.name}`]: ['error', ...ruleOptions] }
   };
 
   return linter.verify(code, config, { filename: 'example.test.ts' });

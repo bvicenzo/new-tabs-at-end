@@ -26,6 +26,7 @@ written as the local plugin `eslint-plugin-vicenzo/`. Everything is configured i
 | `Metrics/ClassLength` / `ModuleLength` 200 | `max-lines` 200, blank lines and comments skipped |
 | `Metrics/CyclomaticComplexity` (RuboCop default) | `complexity` 7 |
 | `Metrics/BlockLength` excluded from specs | `max-lines-per-function` off in `**/*.test.ts` |
+| `ClassLength`/`ModuleLength` never measure specs (a `describe` is not a class) | `max-lines` off in `**/*.test.ts` |
 | `Vicenzo/RSpec/TopLevelHook` | `vitest/no-hooks` — stricter: no hooks at any level (see [0004](0004-test-style.md)) |
 | Unused names prefixed with `_` are allowed (`_isbn`) | `@typescript-eslint/no-unused-vars` ignoring `^_` |
 

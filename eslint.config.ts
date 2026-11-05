@@ -48,13 +48,28 @@ export default defineConfig(
   {
     files: TEST_FILES,
     ...vitest.configs.recommended,
+    settings: { vitest: { globalAliases: { describe: ['context'] } } },
     languageOptions: { globals: { ...vitest.environments.env.globals, context: 'readonly' } },
     rules: {
       ...vitest.configs.recommended.rules,
       'vitest/no-hooks': 'error',
       'vitest/consistent-test-it': ['error', { fn: 'it', withinDescribe: 'it' }],
       'vitest/require-top-level-describe': 'error',
-      'max-lines-per-function': 'off'
+      // Never enable vitest/prefer-each: it asks for the tables vicenzo/dynamic-example-generation forbids.
+      'vicenzo/conditional-in-spec': 'error',
+      'vicenzo/context-wording': 'error',
+      'vicenzo/describe-inside-context': 'error',
+      'vicenzo/dynamic-example-generation': 'error',
+      'vicenzo/example-length': 'error',
+      'vicenzo/inconsistent-sibling-structure': 'error',
+      'vicenzo/iteration-inside-example': 'error',
+      'vicenzo/leaky-definition': 'error',
+      'vicenzo/nested-context-improper-start': 'error',
+      'vicenzo/top-level-context': 'error',
+      'vicenzo/top-level-example': 'error',
+      'vicenzo/unnested-context-improper-start': 'error',
+      'max-lines-per-function': 'off',
+      'max-lines': 'off'
     }
   }
 );

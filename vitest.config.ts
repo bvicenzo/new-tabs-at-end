@@ -1,5 +1,7 @@
 import { defineConfig } from 'vitest/config';
 
+const COVERED_SOURCES = ['src/**', 'eslint-plugin-vicenzo/rules/**', 'eslint-plugin-vicenzo/utils/**'];
+
 export default defineConfig({
   test: {
     globals: true,
@@ -9,6 +11,6 @@ export default defineConfig({
     restoreMocks: true,
     unstubGlobals: true,
     passWithNoTests: true,
-    coverage: { provider: 'v8', include: ['src/**', 'eslint-plugin-vicenzo/rules/**'] }
+    coverage: { provider: 'v8', include: COVERED_SOURCES }
   }
 });
