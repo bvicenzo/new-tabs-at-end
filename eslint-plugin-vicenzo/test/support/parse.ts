@@ -1,6 +1,11 @@
 import { parse, simpleTraverse } from '@typescript-eslint/typescript-estree';
 import { AST_NODE_TYPES, type TSESTree } from '@typescript-eslint/utils';
 
+// The tokens of `code`, with the locations ESLint gives them.
+export function tokensOf(code: string): TSESTree.Token[] {
+  return parse(code, { loc: true, range: true, tokens: true }).tokens;
+}
+
 // Parses `code` with parent links set, as ESLint hands nodes to a rule.
 export function parseProgram(code: string): TSESTree.Program {
   const program = parse(code, { loc: true, range: true });
@@ -63,4 +68,24 @@ export function calleeCall(call: TSESTree.CallExpression): TSESTree.CallExpressi
   if (call.callee.type !== AST_NODE_TYPES.CallExpression) throw new Error('The callee is not a call');
 
   return call.callee;
+}
+
+// The identifier declared by the program's first statement, as `tab` in `const tab = buildTab();`.
+export function firstDeclaredIdentifier(program: TSESTree.Program): TSESTree.Identifier {
+  const [statement] = program.body;
+  const declarator = statement?.type === AST_NODE_TYPES.VariableDeclaration ? statement.declarations[0] : undefined;
+
+  if (declarator?.id.type !== AST_NODE_TYPES.Identifier) throw new Error('The program does not start declaring a name');
+
+  return declarator.id;
+}
+
+// The expression of the program's first statement, as `tabs.length` in `tabs.length;`.
+export function firstExpression(program: TSESTree.Program): TSESTree.Expression {
+  const [statement] = program.body;
+  const startsWithExpression = statement?.type === AST_NODE_TYPES.ExpressionStatement;
+
+  if (!startsWithExpression) throw new Error('The program does not start with an expression');
+
+  return statement.expression;
 }

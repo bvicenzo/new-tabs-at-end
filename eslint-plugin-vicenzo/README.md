@@ -20,11 +20,11 @@ to TypeScript and Vitest. It lives in this repository on purpose and is meant to
 | `dynamic-example-generation` | `Vicenzo/RSpec/DynamicExampleGeneration` | done |
 | `leaky-definition` | `Vicenzo/RSpec/LeakyDefinition` | done |
 | `example-length` | `RSpec/ExampleLength` | done |
-| `multiline-method-call-line-breaks` | `Vicenzo/Layout/MultilineMethodCallLineBreaks` | planned |
-| `short-name` | `Vicenzo/Naming/ShortName`, `Naming/BlockParameterName` | planned |
-| `anonymous-unused-name` | `Vicenzo/Naming/AnonymousUnusedName` | planned |
-| `catch-error-name` | `Naming/RescuedExceptionsVariableName` | planned |
-| `prefer-single-line` | — new: the one-line rule | planned, experimental |
+| `multiline-method-call-line-breaks` | `Vicenzo/Layout/MultilineMethodCallLineBreaks` | done |
+| `short-name` | `Vicenzo/Naming/ShortName`, `Naming/BlockParameterName` | done |
+| `anonymous-unused-name` | `Vicenzo/Naming/AnonymousUnusedName` | done |
+| `catch-error-name` | `Naming/RescuedExceptionsVariableName` | done |
+| `prefer-single-line` | — new: the one-line rule | done, experimental |
 
 ## How each rule adapts its cop
 
@@ -77,6 +77,65 @@ table head and is skipped, so a table counts once.
   block body of a function passed to such a call counts line by line (otherwise `expect(() => { … })` would hide any
   length). A line counts once even when two folded constructs share it. Unlike RuboCop, which counts a block's `end`,
   the closing line of such a function body (`});`) is not counted.
+- **multiline-method-call-line-breaks** — applies to every file. A chain is a head and its links: every method call
+  on a member (`.query(…)`, `?.then(…)`) is a link; the head is what the first link is called on — an identifier or
+  a property path (`chrome.tabs`), or a call that is not a link (`expect(x)`, `handlers[kind](tab)`). Property
+  accesses after a call belong to the next link (`expect(x)` + `.not.toBe(y)`), and index accesses to the call
+  before them; `!`, `as`, `satisfies` and optional chaining do not break a chain. A chain that ends on a later line
+  than its head must start every link on its own line. The first link may stay on the head's line when one of its
+  arguments is a function whose block body spans several lines (`tabs.forEach((tab) => {`); later links never may. The
+  cop's exemption is wider — any arguments spanning lines — but the code style skill breaks the chain before the
+  arguments (`chrome.tabs` / `.query({ … })`), so arguments broken for length do not exempt the link. Also unlike
+  the cop: there is no autofix (line breaking is never left to `--fix`, see the code-style skill), so
+  `IndentationWidth` is gone, and Ruby's `[]` exemption becomes index access, which is not a link at all. A
+  property access that starts its own line inside a link (`.not` alone on a line) is not reported.
+- **short-name** — applies to every file. Every variable and parameter the scope manager defines must spell at least
+  `minNameLength` (default 3) characters, underscores not counted (`a_b` spells two, `_p` one); digits count. That
+  covers `const`/`let`/`var`, destructured names, `for` variables, every kind of function parameter (default, rest,
+  destructured, constructor parameter properties) and — beyond the cops, which never see types — the parameters of
+  function types, method signatures and overloads. Not checked: names made only of underscores
+  (`anonymous-unused-name`), caught errors (`catch-error-name`), and names that are not variables or parameters
+  (functions, classes, enums, namespaces, imports, labels, type parameters, index-signature parameters, mapped-type
+  keys). A name imposed from outside is allowed: a variable read into an object shorthand (`move({ id })`), one bound
+  by a destructuring shorthand (`const { id } = tab`), and an ambient name (`declare const $`, anything inside
+  `declare global { … }`, the parameters of a `declare function`). Unlike the
+  cop, which looks for the keyword shorthand anywhere in the enclosing scope, the exemption follows the variable's own
+  references, so another variable of the same name excuses nothing.
+- **anonymous-unused-name** — applies to every file. A variable, parameter or caught error named only with underscores
+  (`_`, `__`) is reported, naming what it is (`parameter`, `discarded value`, `caught error`). Parameters include
+  rest, default, destructured and constructor parameter properties, and the parameters of type signatures. An array
+  hole (`const [, author] = …`) declares nothing and is allowed, and so is an optional catch binding (`catch { … }`) —
+  the way to ignore an error without naming it. Unlike the cop, which only sees multiple assignment, a plain
+  `const _ = …` is reported too. Ruby's anonymous forwarding (`*`, `**`, `&`, `...`) has no counterpart.
+- **catch-error-name** — applies to every file. The error bound by a catch clause is named `preferredName` (default
+  `error`, from `style.yml`), or `_error` when the name starts with an underscore. As in the cop: a catch clause nested
+  in the body of another is not checked (it cannot reuse the outer name), and neither is one that already uses the
+  preferred name — reading it from outside, declaring it or taking it as a parameter inside — since renaming would
+  redeclare or shadow it. A destructured error (`catch ({ message })`) and an
+  optional catch binding are not checked. Unlike the cop, there is no autofix.
+- **prefer-single-line** (experimental, no cop: RuboCop could never enforce it) — applies to every file. A call (and
+  so a chain), a `new`, an array, an object, a logical or binary operation (a concatenation included) or a ternary
+  broken over several lines is reported when its one-line form fits in `max` (default 120) columns, counting the text
+  before it on its first line — the indentation included — and the code after it on its last line (a trailing comment
+  does not count: comments are exempt from the line length). The one-line form
+  joins the tokens in the project's spacing: `foo(a)`, `[1]`, `{ a: 1 }`, `{}`, `tabs.map(…)`, `a && b`. Constructs are
+  weighed outermost first, and one inside a reported construct is not reported again; when the outer one does not fit,
+  the inner one is still weighed. Never reported:
+  - a construct holding a comment (joining would lose it) or a template literal that spans lines (joining would
+    change its value);
+  - a construct holding a block body with statements or a class body — statements stay on their own lines, even a
+    single one (an empty block, `() => {}`, holds none and is joined);
+  - a call that is a link inside a longer chain, and the left part of a run of one operator (`a && b` in
+    `a && b && c`): a chain or a run is joined whole or not at all, which is what
+    `multiline-method-call-line-breaks` requires. The head of a chain is not a link and is weighed on its own, and so
+    is the left side of a different operator (`a && b` in `a && b || c`).
+
+  Known gaps, left out rather than enforced loosely: a statement's own parentheses (`if (` broken around its
+  condition), parameter lists, import and export specifiers, destructuring patterns, type literals and unions, and an
+  arrow function whose expression body starts on the line after `=>`. Type arguments broken over lines are measured
+  with a space inside the angle brackets (`Map< string, number >`), two columns more than their real form, because a
+  token cannot tell a type bracket from a comparison: the rule may stay silent on such a construct, never wrongly
+  report one.
 
 ## Testing a rule
 

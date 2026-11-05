@@ -1,5 +1,7 @@
 import type { ESLint, Rule } from 'eslint';
 
+import anonymousUnusedName from './rules/anonymous-unused-name';
+import catchErrorName from './rules/catch-error-name';
 import conditionalInSpec from './rules/conditional-in-spec';
 import contextWording from './rules/context-wording';
 import describeInsideContext from './rules/describe-inside-context';
@@ -8,12 +10,17 @@ import exampleLength from './rules/example-length';
 import inconsistentSiblingStructure from './rules/inconsistent-sibling-structure';
 import iterationInsideExample from './rules/iteration-inside-example';
 import leakyDefinition from './rules/leaky-definition';
+import multilineMethodCallLineBreaks from './rules/multiline-method-call-line-breaks';
 import nestedContextImproperStart from './rules/nested-context-improper-start';
+import preferSingleLine from './rules/prefer-single-line';
+import shortName from './rules/short-name';
 import topLevelContext from './rules/top-level-context';
 import topLevelExample from './rules/top-level-example';
 import unnestedContextImproperStart from './rules/unnested-context-improper-start';
 
 const RULE_MODULES = [
+  anonymousUnusedName,
+  catchErrorName,
   conditionalInSpec,
   contextWording,
   describeInsideContext,
@@ -22,7 +29,10 @@ const RULE_MODULES = [
   inconsistentSiblingStructure,
   iterationInsideExample,
   leakyDefinition,
+  multilineMethodCallLineBreaks,
   nestedContextImproperStart,
+  preferSingleLine,
+  shortName,
   topLevelContext,
   topLevelExample,
   unnestedContextImproperStart

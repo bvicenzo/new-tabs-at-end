@@ -116,35 +116,31 @@ describe('vicenzo/unnested-context-improper-start', () => {
 
                 context('and the word is and', () => {
                   it('reports the context call naming the prefix found', () => {
+                    const unnestedContextMessage = 'Start an unnested `context` with `when`, `with` or `without`, not '
+                      + '`and`.';
+
                     const messages = lintWithRule(unnestedContextImproperStart, `
                     describe('TabPlacer', () => {
                       context('and the tab is pinned', () => {});
                     });
                     `);
 
-                    expect(messages).toMatchObject([{
-                      messageId: 'unnestedContextImproperStart',
-                      message: 'Start an unnested `context` with `when`, `with` or `without`, not `and`.',
-                      line: 3,
-                      column: 23
-                    }]);
+                    expect(messages).toMatchObject([{ message: unnestedContextMessage, line: 3, column: 23 }]);
                   });
                 });
 
                 context('and the word is but', () => {
                   it('reports the context call naming the prefix found', () => {
+                    const unnestedContextMessage = 'Start an unnested `context` with `when`, `with` or `without`, not '
+                      + '`but`.';
+
                     const messages = lintWithRule(unnestedContextImproperStart, `
                     describe('TabPlacer', () => {
                       context('but the tab is pinned', () => {});
                     });
                     `);
 
-                    expect(messages).toMatchObject([{
-                      messageId: 'unnestedContextImproperStart',
-                      message: 'Start an unnested `context` with `when`, `with` or `without`, not `but`.',
-                      line: 3,
-                      column: 23
-                    }]);
+                    expect(messages).toMatchObject([{ message: unnestedContextMessage, line: 3, column: 23 }]);
                   });
                 });
               });
@@ -168,6 +164,9 @@ describe('vicenzo/unnested-context-improper-start', () => {
                 context('and the word is in the list', () => {
                   context('and the entry is lowercase', () => {
                     it('reports the context call naming the prefix found', () => {
+                      const unnestedContextMessage = 'Start an unnested `context` with `when`, `with` or `without`, '
+                        + 'not `also`.';
+
                       const code = `
                       describe('TabPlacer', () => {
                         context('also the tab is pinned', () => {});
@@ -177,17 +176,15 @@ describe('vicenzo/unnested-context-improper-start', () => {
 
                       const messages = lintWithRule(unnestedContextImproperStart, code, [{ forbiddenPrefixes }]);
 
-                      expect(messages).toMatchObject([{
-                        messageId: 'unnestedContextImproperStart',
-                        message: 'Start an unnested `context` with `when`, `with` or `without`, not `also`.',
-                        line: 3,
-                        column: 25
-                      }]);
+                      expect(messages).toMatchObject([{ message: unnestedContextMessage, line: 3, column: 25 }]);
                     });
                   });
 
                   context('and the entry has capitals', () => {
                     it('reports the context call naming the prefix found', () => {
+                      const unnestedContextMessage = 'Start an unnested `context` with `when`, `with` or `without`, '
+                        + 'not `also`.';
+
                       const code = `
                       describe('TabPlacer', () => {
                         context('also the tab is pinned', () => {});
@@ -197,12 +194,7 @@ describe('vicenzo/unnested-context-improper-start', () => {
 
                       const messages = lintWithRule(unnestedContextImproperStart, code, [{ forbiddenPrefixes }]);
 
-                      expect(messages).toMatchObject([{
-                        messageId: 'unnestedContextImproperStart',
-                        message: 'Start an unnested `context` with `when`, `with` or `without`, not `also`.',
-                        line: 3,
-                        column: 25
-                      }]);
+                      expect(messages).toMatchObject([{ message: unnestedContextMessage, line: 3, column: 25 }]);
                     });
                   });
                 });
@@ -253,31 +245,27 @@ describe('vicenzo/unnested-context-improper-start', () => {
 
                 context('and the word is and', () => {
                   it('reports the context call naming the prefix found', () => {
+                    const unnestedContextMessage = 'Start an unnested `context` with `when`, `with` or `without`, not '
+                      + '`and`.';
+
                     const code = "context('and the tab is pinned', () => {});";
 
                     const messages = lintWithRule(unnestedContextImproperStart, code);
 
-                    expect(messages).toMatchObject([{
-                      messageId: 'unnestedContextImproperStart',
-                      message: 'Start an unnested `context` with `when`, `with` or `without`, not `and`.',
-                      line: 1,
-                      column: 1
-                    }]);
+                    expect(messages).toMatchObject([{ message: unnestedContextMessage, line: 1, column: 1 }]);
                   });
                 });
 
                 context('and the word is but', () => {
                   it('reports the context call naming the prefix found', () => {
+                    const unnestedContextMessage = 'Start an unnested `context` with `when`, `with` or `without`, not '
+                      + '`but`.';
+
                     const code = "context('but the tab is pinned', () => {});";
 
                     const messages = lintWithRule(unnestedContextImproperStart, code);
 
-                    expect(messages).toMatchObject([{
-                      messageId: 'unnestedContextImproperStart',
-                      message: 'Start an unnested `context` with `when`, `with` or `without`, not `but`.',
-                      line: 1,
-                      column: 1
-                    }]);
+                    expect(messages).toMatchObject([{ message: unnestedContextMessage, line: 1, column: 1 }]);
                   });
                 });
               });
@@ -297,33 +285,29 @@ describe('vicenzo/unnested-context-improper-start', () => {
                 context('and the word is in the list', () => {
                   context('and the entry is lowercase', () => {
                     it('reports the context call naming the prefix found', () => {
+                      const unnestedContextMessage = 'Start an unnested `context` with `when`, `with` or `without`, '
+                        + 'not `also`.';
+
                       const code = "context('also the tab is pinned', () => {});";
                       const forbiddenPrefixes = ['also'];
 
                       const messages = lintWithRule(unnestedContextImproperStart, code, [{ forbiddenPrefixes }]);
 
-                      expect(messages).toMatchObject([{
-                        messageId: 'unnestedContextImproperStart',
-                        message: 'Start an unnested `context` with `when`, `with` or `without`, not `also`.',
-                        line: 1,
-                        column: 1
-                      }]);
+                      expect(messages).toMatchObject([{ message: unnestedContextMessage, line: 1, column: 1 }]);
                     });
                   });
 
                   context('and the entry has capitals', () => {
                     it('reports the context call naming the prefix found', () => {
+                      const unnestedContextMessage = 'Start an unnested `context` with `when`, `with` or `without`, '
+                        + 'not `also`.';
+
                       const code = "context('also the tab is pinned', () => {});";
                       const forbiddenPrefixes = ['Also'];
 
                       const messages = lintWithRule(unnestedContextImproperStart, code, [{ forbiddenPrefixes }]);
 
-                      expect(messages).toMatchObject([{
-                        messageId: 'unnestedContextImproperStart',
-                        message: 'Start an unnested `context` with `when`, `with` or `without`, not `also`.',
-                        line: 1,
-                        column: 1
-                      }]);
+                      expect(messages).toMatchObject([{ message: unnestedContextMessage, line: 1, column: 1 }]);
                     });
                   });
                 });

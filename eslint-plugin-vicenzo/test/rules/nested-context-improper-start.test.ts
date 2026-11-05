@@ -118,18 +118,16 @@ describe('vicenzo/nested-context-improper-start', () => {
             context('and the word is when', () => {
               context('and its enclosing context is the outermost group', () => {
                 it('reports the context call suggesting and or but', () => {
+                  const nestedContextMessage = 'Start a nested `context` with `and` or `but`, not `when`, `with` or '
+                    + '`without`.';
+
                   const messages = lintWithRule(nestedContextImproperStart, `
                   context('when the tab is new', () => {
                     context('when it is grouped', () => {});
                   });
                   `);
 
-                  expect(messages).toMatchObject([{
-                    messageId: 'nestedContextImproperStart',
-                    message: 'Start a nested `context` with `and` or `but`, not `when`, `with` or `without`.',
-                    line: 3,
-                    column: 21
-                  }]);
+                  expect(messages).toMatchObject([{ message: nestedContextMessage, line: 3, column: 21 }]);
                 });
               });
 
@@ -142,11 +140,10 @@ describe('vicenzo/nested-context-improper-start', () => {
                     });
                   });
                   `);
+                  const enclosingContextReport = { messageId: 'nestedContextImproperStart', line: 3, column: 21 };
+                  const innerContextReport = { messageId: 'nestedContextImproperStart', line: 4, column: 23 };
 
-                  expect(messages).toMatchObject([
-                    { messageId: 'nestedContextImproperStart', line: 3, column: 21 },
-                    { messageId: 'nestedContextImproperStart', line: 4, column: 23 }
-                  ]);
+                  expect(messages).toMatchObject([enclosingContextReport, innerContextReport]);
                 });
               });
             });
@@ -154,18 +151,16 @@ describe('vicenzo/nested-context-improper-start', () => {
             context('and the word is with', () => {
               context('and its enclosing context is the outermost group', () => {
                 it('reports the context call suggesting and or but', () => {
+                  const nestedContextMessage = 'Start a nested `context` with `and` or `but`, not `when`, `with` or '
+                    + '`without`.';
+
                   const messages = lintWithRule(nestedContextImproperStart, `
                   context('when the tab is new', () => {
                     context('with a group', () => {});
                   });
                   `);
 
-                  expect(messages).toMatchObject([{
-                    messageId: 'nestedContextImproperStart',
-                    message: 'Start a nested `context` with `and` or `but`, not `when`, `with` or `without`.',
-                    line: 3,
-                    column: 21
-                  }]);
+                  expect(messages).toMatchObject([{ message: nestedContextMessage, line: 3, column: 21 }]);
                 });
               });
 
@@ -178,11 +173,10 @@ describe('vicenzo/nested-context-improper-start', () => {
                     });
                   });
                   `);
+                  const enclosingContextReport = { messageId: 'nestedContextImproperStart', line: 3, column: 21 };
+                  const innerContextReport = { messageId: 'nestedContextImproperStart', line: 4, column: 23 };
 
-                  expect(messages).toMatchObject([
-                    { messageId: 'nestedContextImproperStart', line: 3, column: 21 },
-                    { messageId: 'nestedContextImproperStart', line: 4, column: 23 }
-                  ]);
+                  expect(messages).toMatchObject([enclosingContextReport, innerContextReport]);
                 });
               });
             });
@@ -190,18 +184,16 @@ describe('vicenzo/nested-context-improper-start', () => {
             context('and the word is without', () => {
               context('and its enclosing context is the outermost group', () => {
                 it('reports the context call suggesting and or but', () => {
+                  const nestedContextMessage = 'Start a nested `context` with `and` or `but`, not `when`, `with` or '
+                    + '`without`.';
+
                   const messages = lintWithRule(nestedContextImproperStart, `
                   context('when the tab is new', () => {
                     context('without a group', () => {});
                   });
                   `);
 
-                  expect(messages).toMatchObject([{
-                    messageId: 'nestedContextImproperStart',
-                    message: 'Start a nested `context` with `and` or `but`, not `when`, `with` or `without`.',
-                    line: 3,
-                    column: 21
-                  }]);
+                  expect(messages).toMatchObject([{ message: nestedContextMessage, line: 3, column: 21 }]);
                 });
               });
 
@@ -214,11 +206,10 @@ describe('vicenzo/nested-context-improper-start', () => {
                     });
                   });
                   `);
+                  const enclosingContextReport = { messageId: 'nestedContextImproperStart', line: 3, column: 21 };
+                  const innerContextReport = { messageId: 'nestedContextImproperStart', line: 4, column: 23 };
 
-                  expect(messages).toMatchObject([
-                    { messageId: 'nestedContextImproperStart', line: 3, column: 21 },
-                    { messageId: 'nestedContextImproperStart', line: 4, column: 23 }
-                  ]);
+                  expect(messages).toMatchObject([enclosingContextReport, innerContextReport]);
                 });
               });
             });

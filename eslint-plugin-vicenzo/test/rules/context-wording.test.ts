@@ -147,32 +147,26 @@ describe('vicenzo/context-wording', () => {
           context('and the allowed prefixes are configured', () => {
             context('but the title has no leading word', () => {
               it('reports the context call naming the allowed prefixes', () => {
+                const wordingMessage = 'Start the `context` description with one of: `for`, `when`.';
+
                 const code = "context('#onTabCreated', () => {});";
 
                 const messages = lintWithRule(contextWording, code, [{ prefixes: ['for', 'when'] }]);
 
-                expect(messages).toMatchObject([{
-                  messageId: 'contextWording',
-                  message: 'Start the `context` description with one of: `for`, `when`.',
-                  line: 1,
-                  column: 1
-                }]);
+                expect(messages).toMatchObject([{ message: wordingMessage, line: 1, column: 1 }]);
               });
             });
 
             context('and the title has a leading word', () => {
               context('but the word is a default prefix the list leaves out', () => {
                 it('reports the context call naming the allowed prefixes', () => {
+                  const wordingMessage = 'Start the `context` description with one of: `for`, `when`.';
+
                   const code = "context('with a pinned tab', () => {});";
 
                   const messages = lintWithRule(contextWording, code, [{ prefixes: ['for', 'when'] }]);
 
-                  expect(messages).toMatchObject([{
-                    messageId: 'contextWording',
-                    message: 'Start the `context` description with one of: `for`, `when`.',
-                    line: 1,
-                    column: 1
-                  }]);
+                  expect(messages).toMatchObject([{ message: wordingMessage, line: 1, column: 1 }]);
                 });
               });
 

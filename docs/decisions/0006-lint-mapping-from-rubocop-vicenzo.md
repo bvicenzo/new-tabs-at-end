@@ -16,7 +16,7 @@ written as the local plugin `eslint-plugin-vicenzo/`. Everything is configured i
 
 | Ruby | ESLint |
 | --- | --- |
-| `Layout/LineLength` 120, comments allowed | `@stylistic/max-len` 120, `ignoreComments`, `ignoreUrls` |
+| `Layout/LineLength` 120, comments allowed | `@stylistic/max-len` 120, `ignoreComments` |
 | Fixed, consistent indentation | `@stylistic/indent` 2 |
 | Punctuation chosen for TS (code style skill) | `@stylistic/semi` always, `quotes` single (`avoidEscape`), `comma-dangle` never, `operator-linebreak` before, `dot-location` property |
 | `Layout/Multiline{MethodArgument,Array,HashKey}LineBreaks`, `First*LineBreak`, `Multiline*BraceLayout` | `@stylistic/function-call-argument-newline` consistent, `function-paren-newline` multiline-arguments, `array-bracket-newline` and `array-element-newline` consistent, `object-curly-newline` consistent, `object-property-newline`, `multiline-ternary` always-multiline |
@@ -69,6 +69,19 @@ The plugin's `README.md` tracks which of these exist yet and how each one adapts
   `MultilineMethodCallParentheses`, `Vicenzo/Rails/*`, `Style/SymbolArray`, `Style/WordArray`,
   `Style/PreferredHashMethods`.
 - `however` as a context prefix: not part of this vocabulary; `but` covers it.
+
+## Departures found by checking the code style skill against the lint
+
+The ❌/✅ examples of the code style skill were linted (phase C of plan 04). Two gaps came out of it, closed on
+purpose:
+
+- `@stylistic/max-len` has no `ignoreUrls`. ESLint's option skips any line that merely contains a URL, so a 140-column
+  call with a URL among its arguments passed; RuboCop's `AllowURI` only forgives a line the URI itself makes long.
+  Comments stay exempt.
+- `multiline-method-call-line-breaks` narrows the cop's exemption. The cop lets the first link stay on the head's line
+  whenever its own arguments span lines (`object.method(` … `)`); the code style skill breaks the chain before the
+  arguments (`chrome.tabs` / `.query({ … })`). The exemption now holds only when one of those arguments is a function
+  whose block body spans lines (`tabs.forEach((tab) => {`), where statements break the line, not length.
 
 ## Consequences
 

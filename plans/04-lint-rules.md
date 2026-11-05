@@ -86,17 +86,17 @@ Cada regra adapta para o Vitest a semântica levantada da cop: as formas de AST,
 
 | Regra | Origem | Adaptação |
 | --- | --- | --- |
-| `multiline-method-call-line-breaks` | `Layout/MultilineMethodCallLineBreaks` | cadeia quebrada é tudo ou nada; exceção para a chamada cujos próprios argumentos causam a quebra; atravessa `?.`, `!` e `as` |
-| `short-name` | `Naming/ShortName` + `BlockParameterName` 3 | nome com 3 letras ou mais, sem contar `_`, em variáveis, parâmetros e variáveis de `for`. Ficam isentos os nomes só com `_`, o `catch` e nomes usados em shorthand de objeto ou de desestruturação no mesmo escopo |
+| `multiline-method-call-line-breaks` | `Layout/MultilineMethodCallLineBreaks` | cadeia quebrada é tudo ou nada; atravessa `?.`, `!` e `as`. A exceção da cop (a chamada cujos próprios argumentos causam a quebra) foi **restringida** na fase C: só vale quando um argumento é função com corpo de bloco que ocupa várias linhas, para concordar com a skill (ADR 0006) |
+| `short-name` | `Naming/ShortName` + `BlockParameterName` 3 | nome com 3 letras ou mais, sem contar `_`, em variáveis, parâmetros e variáveis de `for`. Ficam isentos os nomes só com `_`, o `catch`, nomes usados em shorthand de objeto ou de desestruturação e nomes ambientes (`declare`) |
 | `anonymous-unused-name` | `Naming/AnonymousUnusedName` | `_`/`__` em parâmetros, desestruturação e `catch`; buracos de array (`[, b]`) são permitidos |
 | `catch-error-name` | `RescuedExceptionsVariableName: error` | `catch (error)` |
 | `prefer-single-line` | **nova** — a regra de uma linha | ver abaixo |
 
 **`prefer-single-line` (experimental).** Sinaliza uma chamada, cadeia, array, objeto ou condição quebrada em várias linhas quando a forma em uma linha caberia em 120 colunas, contando a indentação real. Não sinaliza:
 - o que tem comentário dentro;
-- função com corpo de várias instruções;
+- construção que contém corpo de bloco com instruções, mesmo uma só (decidido na fase C; bloco vazio não conta);
 - template literal com quebra de linha;
-- quebra exigida por outra regra.
+- quebra exigida por outra regra: um elo dentro de uma cadeia maior, ou a parte esquerda de uma sequência do mesmo operador, que se juntam inteiras ou não se juntam.
 
 Se alguma parte não puder ser imposta com confiança, isso vira achado documentado no README do plugin, e não uma regra frouxa.
 

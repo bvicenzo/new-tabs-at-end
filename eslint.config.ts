@@ -18,7 +18,7 @@ export default defineConfig(
     languageOptions: { parserOptions: { projectService: true, tsconfigRootDir: import.meta.dirname } },
     plugins: { vicenzo },
     rules: {
-      '@stylistic/max-len': ['error', { code: 120, ignoreComments: true, ignoreUrls: true }],
+      '@stylistic/max-len': ['error', { code: 120, ignoreComments: true }],
       '@stylistic/quotes': ['error', 'single', { avoidEscape: true }],
       '@stylistic/operator-linebreak': ['error', 'before', { overrides: { '=': 'none' } }],
       '@stylistic/dot-location': ['error', 'property'],
@@ -42,7 +42,12 @@ export default defineConfig(
       '@typescript-eslint/no-unused-vars': [
         'error',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' }
-      ]
+      ],
+      'vicenzo/anonymous-unused-name': 'error',
+      'vicenzo/catch-error-name': 'error',
+      'vicenzo/multiline-method-call-line-breaks': 'error',
+      'vicenzo/prefer-single-line': 'error',
+      'vicenzo/short-name': 'error'
     }
   },
   {

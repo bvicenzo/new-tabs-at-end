@@ -27,7 +27,8 @@ function isFunction(node: TSESTree.Node): node is FunctionNode {
 
 // Every node right below `node`, whatever key holds it, except the link back to its parent.
 function childrenOf(node: TSESTree.Node): TSESTree.Node[] {
-  return Object.entries(node as unknown as Record<string, unknown>)
+  return Object
+    .entries(node as unknown as Record<string, unknown>)
     .filter(([property]) => property !== 'parent')
     .flatMap(([, child]) => (Array.isArray(child) ? (child as unknown[]) : [child]))
     .filter(isNode);
