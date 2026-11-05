@@ -11,6 +11,7 @@ export default defineConfig({
     restoreMocks: true,
     unstubGlobals: true,
     passWithNoTests: true,
-    coverage: { provider: 'v8', include: COVERED_SOURCES }
+    // Every covered file, the extension's included, must be fully covered.
+    coverage: { provider: 'v8', include: COVERED_SOURCES, thresholds: { 100: true, perFile: true } }
   }
 });

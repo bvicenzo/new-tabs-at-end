@@ -34,8 +34,12 @@ npm install
 npm run lint           # ESLint, with the rules ported from rubocop-vicenzo
 npm run typecheck      # tsc --noEmit
 npm test               # Vitest
-npm run test:coverage  # Vitest with v8 coverage
+npm run test:coverage  # Vitest with v8 coverage, 100% per file required
 ```
+
+CI runs `lint`, `typecheck` and `test:coverage` on every pull request and checks that its title is a Conventional
+Commit. While the repository is private the checks do not block the merge
+([0007](docs/decisions/0007-ci-checks-are-advisory-while-private.md)).
 
 Architecture decisions live in [`docs/decisions/`](docs/decisions/); the lint rules and where each comes from are in
 [0006](docs/decisions/0006-lint-mapping-from-rubocop-vicenzo.md).
