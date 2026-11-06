@@ -1,4 +1,14 @@
+<p>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="brand/logo-dark.svg">
+    <img src="brand/logo.svg" alt="New Tabs at End" width="360">
+  </picture>
+</p>
+
 # New Tabs at End
+
+**Website:** [bvicenzo.github.io/new-tabs-at-end](https://bvicenzo.github.io/new-tabs-at-end/) ·
+[Privacy policy](https://bvicenzo.github.io/new-tabs-at-end/privacy.html)
 
 A Chrome extension that moves **only genuinely new tabs** to the end of the window — and leaves restored tabs,
 and the tab groups they belong to, exactly where Chrome puts them.
@@ -68,6 +78,10 @@ npm run build          # esbuild bundle and static files into dist/
 CI runs `lint`, `typecheck`, `test:coverage` and `build` on every pull request and checks that its title is a
 Conventional Commit. While the repository is private the checks do not block the merge
 ([0007](docs/decisions/0007-ci-checks-are-advisory-while-private.md)).
+
+The website is plain HTML and CSS in [`site/`](site/), published to GitHub Pages by
+[`.github/workflows/pages.yml`](.github/workflows/pages.yml) on every push to `master` that touches it. The icon, the
+palette and the Chrome Web Store images live in [`brand/`](brand/README.md).
 
 Architecture decisions live in [`docs/decisions/`](docs/decisions/); the lint rules and where each comes from are in
 [0006](docs/decisions/0006-lint-mapping-from-rubocop-vicenzo.md).

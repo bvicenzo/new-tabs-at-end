@@ -20,5 +20,8 @@ Chrome extension (Manifest V3, TypeScript) that moves only genuinely new tabs to
 ## Where things are
 
 - `docs/decisions/` — architecture decisions. Read them before changing detection, placement, lint or test style.
+- `brand/` — icon, logo, palette and store images. SVGs are the sources; `brand/render.sh` regenerates the PNGs.
+- `site/` — the GitHub Pages website (English at the root, Portuguese in `site/pt-br/`), plain HTML and CSS with no
+  JavaScript. Keep both languages in step.
 - `plans/` — the work plans, one file per plan, numbered in execution order. `plans/02-test-skills.md` is
   intentionally git-ignored.

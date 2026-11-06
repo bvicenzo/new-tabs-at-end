@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Política de privacidade — New Tabs at End</title>
+  <meta name="description" content="A New Tabs at End não coleta nenhum dado. O que ela guarda no seu navegador e por que precisa de cada permissão.">
+  <meta name="theme-color" content="#0F172A">
+  <link rel="canonical" href="https://bvicenzo.github.io/new-tabs-at-end/pt-br/privacy.html">
+  <link rel="alternate" hreflang="en" href="https://bvicenzo.github.io/new-tabs-at-end/privacy.html">
+  <link rel="alternate" hreflang="pt-BR" href="https://bvicenzo.github.io/new-tabs-at-end/pt-br/privacy.html">
+  <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Pular para o conteúdo</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="./"><img src="../assets/icon.svg" alt="" width="32" height="32"><span>New Tabs <em>at End</em></span></a>
+      <nav class="site-nav" aria-label="Principal">
+        <a class="optional" href="./#how">Como funciona</a>
+        <a href="https://github.com/bvicenzo/new-tabs-at-end">GitHub</a>
+        <a class="lang" href="../privacy.html" hreflang="en" lang="en" title="Read in English">EN</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="doc">
+    <div class="wrap">
+      <h1>Política de privacidade</h1>
+      <p class="updated">Atualizada em 6 de novembro de 2026.</p>
+
+      <p class="summary">A New Tabs at End não coleta, não transmite, não vende e não compartilha nenhum dado. Tudo o que ela precisa fica no seu navegador.</p>
+
+      <h2>O que a extensão guarda</h2>
+      <p>Ela guarda duas coisas, ambas no armazenamento de extensões do próprio Chrome:</p>
+      <ul>
+        <li><strong>A sua configuração de posicionamento</strong> — se links abertos de uma aba em um grupo vão para o fim da janela ou para o fim do grupo. Fica em <code>chrome.storage.sync</code>; se a sincronização do Chrome estiver ativa, o Chrome a leva para os seus outros dispositivos. Essa sincronização é feita pelo Chrome e pela sua conta Google; o autor da extensão nunca tem acesso a ela.</li>
+        <li><strong>A última aba que ela posicionou</strong> — um id de aba e um id de grupo, números atribuídos pelo Chrome, para o atalho saber qual aba mover. Fica em <code>chrome.storage.session</code> e é apagada quando o navegador fecha.</li>
+      </ul>
+      <p>Nenhum endereço, título de página, conteúdo de página ou histórico de navegação é guardado.</p>
+
+      <h2>Por que ela precisa de cada permissão</h2>
+      <ul>
+        <li><strong><code>tabs</code></strong> — para saber quando uma aba é criada e movê-la. O Chrome descreve essa permissão como capaz de “ler seu histórico de navegação”, porque ela dá acesso ao endereço das abas abertas. A extensão só verifica se o endereço de uma aba recém-criada ainda está vazio, que é como ela diferencia uma aba que você abriu de uma que o Chrome restaurou. Ela nunca registra nem envia um endereço.</li>
+        <li><strong><code>tabGroups</code></strong> — para manter uma aba no grupo, ou tirá-la de lá, conforme a sua configuração.</li>
+        <li><strong><code>storage</code></strong> — para guardar os dois itens acima.</li>
+      </ul>
+      <p>A extensão não consegue ler nem alterar o conteúdo das páginas que você visita.</p>
+
+      <h2>O que ela não faz</h2>
+      <ul>
+        <li>Não faz nenhuma requisição de rede: sem analytics, sem telemetria, sem relatórios de erro, sem anúncios.</li>
+        <li>Não carrega código remoto; tudo o que ela executa está no pacote que você instala.</li>
+        <li>Não compartilha nada com terceiros, porque não tem nada a compartilhar.</li>
+      </ul>
+
+      <h2>Este site</h2>
+      <p>Esta página é hospedada no GitHub Pages. Ela não usa cookies, analytics nem scripts de terceiros. O GitHub pode manter logs de servidor comuns, como endereços IP, conforme a <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" hreflang="en">Declaração de Privacidade do GitHub</a>.</p>
+
+      <h2>Mudanças</h2>
+      <p>Se a extensão algum dia passar a tratar dados de outra forma, esta página será atualizada antes de essa versão ser publicada, e a data acima mudará. O histórico completo desta política está no <a href="https://github.com/bvicenzo/new-tabs-at-end/commits/master/site/pt-br/privacy.html">repositório do projeto</a>.</p>
+
+      <h2>Contato</h2>
+      <p>Dúvidas sobre privacidade são bem-vindas como uma <a href="https://github.com/bvicenzo/new-tabs-at-end/issues">issue no GitHub</a>.</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <a class="brand" href="./"><img src="../assets/icon.svg" alt="" width="28" height="28"><span>New Tabs <em>at End</em></span></a>
+      <nav aria-label="Rodapé">
+        <a href="./">Início</a>
+        <a href="https://github.com/bvicenzo/new-tabs-at-end">Código-fonte</a>
+        <a href="../privacy.html" hreflang="en" lang="en">English</a>
+      </nav>
+      <p>Feita por <a href="https://github.com/bvicenzo">Bruno Vicenzo</a>. Código aberto sob a <a href="https://github.com/bvicenzo/new-tabs-at-end/blob/master/LICENSE">GPL-3.0</a>.</p>
+    </div>
+  </footer>
+</body>
+</html>
