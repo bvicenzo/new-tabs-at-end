@@ -1,6 +1,6 @@
 {
   "name": "new-tabs-at-end",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "description": "Chrome extension that moves only genuinely new tabs to the end of the window",
   "license": "GPL-3.0-or-later",
