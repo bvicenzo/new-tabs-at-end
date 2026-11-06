@@ -7,8 +7,8 @@
 ## Context
 
 The repository became public, so a ruleset can protect `master` on the Free plan. Releases are cut by release-please,
-whose pull requests are opened with the workflow's `GITHUB_TOKEN`; GitHub does not start workflows for events caused
-by that token, so the CI never runs on them.
+which opens a pull request with the next version. Opened with the workflow's `GITHUB_TOKEN`, that pull request does not
+start the CI on its own: GitHub holds the runs as `action_required` until someone approves them by hand.
 
 ## Decision
 
@@ -18,14 +18,14 @@ A ruleset named `master` protects the default branch:
 - the `Lint, typecheck and coverage` and `Conventional Commit title` checks must pass;
 - force pushes and deleting the branch are blocked.
 
-Repository admins may bypass the ruleset, but only when merging a pull request — never by pushing to `master`. That
-bypass is how a release-please pull request, which carries no checks, gets merged.
+release-please runs with a personal access token stored as the `RELEASE_PLEASE_TOKEN` secret, so its pull requests
+are opened by a user and the CI runs on them like on any other pull request.
+
+Repository admins may still bypass the ruleset, but only when merging a pull request — never by pushing to `master`.
 
 ## Consequences
 
 - A red check blocks the merge for everyone but an admin, and an admin who bypasses does it on purpose, in the merge
-  dialog.
-- A release pull request only changes the version and the changelog, so merging it without checks risks nothing the
-  CI would have caught; the push to `master` that follows runs the CI anyway.
-- If release pull requests ever need checks, release-please gets a GitHub App token instead of `GITHUB_TOKEN`, and the
-  bypass can go.
+  dialog. Release pull requests need no bypass.
+- The token belongs to a person and expires: when it does, the `Release` workflow fails until the secret is renewed.
+  It needs read and write access to the contents and the pull requests of this repository.

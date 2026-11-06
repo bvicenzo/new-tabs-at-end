@@ -23,6 +23,9 @@ jobs:
       - id: release
         uses: googleapis/release-please-action@v5
         with:
+          # A personal token, not GITHUB_TOKEN: the release pull request is then opened by a user, so the CI runs on it
+          # like on any other pull request instead of waiting for approval (0011).
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
 
