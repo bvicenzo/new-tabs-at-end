@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 128" font-family="Inter, 'Adwaita Sans', 'Segoe UI', system-ui, sans-serif">
+  <rect width="128" height="128" rx="28" fill="#0F172A"/><path d="M12 85V52q0-5 5-5h12q5 0 5 5v33z" fill="#334155"/><path d="M38 85V52q0-5 5-5h12q5 0 5 5v33z" fill="#475569"/><path d="M64 85V52q0-5 5-5h12q5 0 5 5v33z" fill="#64748B"/><path d="M90 85V40q0-7 7-7h12q7 0 7 7v45z" fill="#2DD4BF"/><path d="M103 51v18M94 60h18" stroke="#0F172A" stroke-width="6" stroke-linecap="round"/><path d="M12 94h104" stroke="#2DD4BF" stroke-width="5" stroke-linecap="round"/>
+  <text x="152" y="80" font-size="46" font-weight="700" fill="#0F172A" letter-spacing="-1">New Tabs <tspan fill="#0D9488">at End</tspan></text>
+</svg>

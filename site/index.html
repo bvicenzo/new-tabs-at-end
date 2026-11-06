@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>New Tabs at End — only genuinely new tabs go to the end</title>
+  <meta name="description" content="A free Chrome extension that moves the tabs you open to the end of the window, and leaves restored tabs and your tab groups exactly where Chrome puts them. No data collected.">
+  <meta name="theme-color" content="#0F172A">
+  <link rel="canonical" href="https://bvicenzo.github.io/new-tabs-at-end/">
+  <link rel="alternate" hreflang="en" href="https://bvicenzo.github.io/new-tabs-at-end/">
+  <link rel="alternate" hreflang="pt-BR" href="https://bvicenzo.github.io/new-tabs-at-end/pt-br/">
+  <link rel="alternate" hreflang="x-default" href="https://bvicenzo.github.io/new-tabs-at-end/">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="New Tabs at End">
+  <meta property="og:description" content="New tabs go to the end. Restored tabs and your tab groups stay put.">
+  <meta property="og:url" content="https://bvicenzo.github.io/new-tabs-at-end/">
+  <meta property="og:image" content="https://bvicenzo.github.io/new-tabs-at-end/assets/og-image.png">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="pt_BR">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="./"><img src="assets/icon.svg" alt="" width="32" height="32"><span>New Tabs <em>at End</em></span></a>
+      <nav class="site-nav" aria-label="Main">
+        <a class="optional" href="#how">How it works</a>
+        <a class="optional" href="#privacy">Privacy</a>
+        <a href="https://github.com/bvicenzo/new-tabs-at-end">GitHub</a>
+        <a class="lang" href="pt-br/" hreflang="pt-BR" lang="pt-BR" title="Ler em português">PT</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="wrap">
+        <div>
+          <p class="eyebrow"><span>Free</span><span>Open source</span><span>No data collected</span></p>
+          <h1>New tabs go to the end. <em>Everything else stays put.</em></h1>
+          <p class="lead">
+            A Chrome extension that moves the tabs you open — <kbd>Ctrl</kbd>+<kbd>T</kbd>, links, bookmarks — to the end
+            of the window, and leaves restored tabs and your tab groups exactly where Chrome puts them.
+          </p>
+          <div class="actions">
+            <a class="button button-primary" href="#install">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+              Add to Chrome
+            </a>
+            <a class="button button-ghost" href="https://github.com/bvicenzo/new-tabs-at-end">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg>
+              View the source
+            </a>
+          </div>
+          <p class="fineprint">Chrome 102 or later · English and Português</p>
+        </div>
+
+        <div class="browser" role="img" aria-label="A browser window: a link opened from a tab in the Work group lands at the end of the tab strip, while the group stays intact.">
+          <span class="keys">Ctrl + click</span>
+          <div class="strip">
+            <span class="chip">Work</span>
+            <span class="tab"></span>
+            <span class="tab active"></span>
+            <span class="tab"></span>
+            <span class="slot"></span>
+            <span class="tab new">New tab</span>
+            <span class="newtab-plus">+</span>
+            <span class="group-line"></span>
+          </div>
+          <div class="toolbar"><i></i><i></i><b></b></div>
+          <div class="page"><i></i><i></i><i></i><i></i><div class="cards"><i></i><i></i></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="why">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Why another one</span>
+          <h2>Other “new tabs last” extensions move too much.</h2>
+          <p>
+            They push every tab Chrome creates to the end — including the ones it is bringing back. Reopen the browser
+            with “Continue where you left off” and your groups come apart. Bring a tab back with
+            <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>T</kbd> and it lands at the end instead of where it was.
+          </p>
+        </div>
+
+        <div class="grid-2 compare">
+          <div class="card bad">
+            <span class="label">A typical extension, after a restart</span>
+            <div class="mini" aria-hidden="true">
+              <span class="c">Work</span><span class="t g"></span><span class="t g"></span><span class="t"></span><span class="t"></span><span class="t stray"></span>
+            </div>
+            <p>A group’s first tab is recreated outside it, and the extension pushes it to the end. The group is now a tab short, and its first tab sits in the wrong place.</p>
+          </div>
+          <div class="card good">
+            <span class="label">New Tabs at End, after a restart</span>
+            <div class="mini" aria-hidden="true">
+              <span class="c">Work</span><span class="t g"></span><span class="t g"></span><span class="t g"></span><span class="t"></span><span class="t"></span>
+            </div>
+            <p>Restored tabs are recognised and left alone. Your window comes back exactly as you left it — groups, order and all.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" class="soft">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">How it works</span>
+          <h2>Only the tabs you open are moved.</h2>
+          <p>Everything Chrome brings back stays where Chrome puts it.</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Goes to the end</h3>
+            <p style="margin-bottom:18px">A tab you just asked for.</p>
+            <ul class="rule-list">
+              <li><span><kbd>Ctrl</kbd>+<kbd>T</kbd> or the <strong>+</strong> button</span></li>
+              <li><span>A link opened in a new tab<small>Middle click, Ctrl+click, links that open a new tab, <code>window.open</code></small></span></li>
+              <li><span>A bookmark opened in a new tab</span></li>
+              <li><span><kbd>Alt</kbd>+<kbd>Enter</kbd> in the address bar</span></li>
+              <li><span>A link opened from another application</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Stays where it is</h3>
+            <p style="margin-bottom:18px">A tab Chrome is bringing back.</p>
+            <ul class="rule-list stay">
+              <li><span>Reopening the browser with a saved session</span></li>
+              <li><span><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>T</kbd> on a tab or a window</span></li>
+              <li><span>Duplicating a tab<small>It stays next to the original.</small></span></li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="note">
+          <span>
+            <strong>How it tells them apart.</strong> A tab Chrome restores is created already knowing its address; a tab
+            you open is not. One check, at the moment the tab is created: no delays, no waiting, no visible jump.
+            <a href="https://github.com/bvicenzo/new-tabs-at-end/blob/master/docs/decisions/0001-detect-new-tabs-by-empty-url.md">Read the evidence</a>.
+          </span>
+        </p>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Features</span>
+          <h2>Does one thing. Lets you fine-tune it.</h2>
+        </div>
+
+        <div class="grid-4">
+          <div class="card">
+            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18V8a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8"/><path d="M2 18h20"/></svg></span>
+            <h3>Your groups, your call</h3>
+            <p>A link opened from a grouped tab can go to the end of the window (the default) or to the end of its group. Pick in the options.</p>
+          </div>
+          <div class="card">
+            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></svg></span>
+            <h3>One key fixes one tab</h3>
+            <p><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>G</kbd> moves the last placed tab to the other place — even while it is still in the background.</p>
+          </div>
+          <div class="card">
+            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span>
+            <h3>Speaks your language</h3>
+            <p>The options are in English and Brazilian Portuguese, following your browser.</p>
+          </div>
+          <div class="card">
+            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></span>
+            <h3>Small and quiet</h3>
+            <p>No popup, no badge, no toolbar button. It does its one job and stays out of your way.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="privacy" class="trust">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Privacy</span>
+          <h2>Nothing leaves your browser.</h2>
+          <p>
+            The extension asks for three permissions and uses each for one thing. It never reads the pages you visit and
+            never talks to a server. <a href="privacy.html">Read the privacy policy</a>.
+          </p>
+        </div>
+
+        <div class="permissions">
+          <div class="permission">
+            <code>tabs</code>
+            <p>
+              To notice when a tab is created and move it.
+              <small>Chrome warns that this permission can “read your browsing history”, because it exposes the address of each tab. The extension only checks whether a new tab’s address is still empty — it never stores or sends an address.</small>
+            </p>
+          </div>
+          <div class="permission">
+            <code>tabGroups</code>
+            <p>To keep a link in its group, or take it out, as your setting says.</p>
+          </div>
+          <div class="permission">
+            <code>storage</code>
+            <p>
+              To remember your placement setting and the last tab it placed.
+              <small>The setting is synced by Chrome across your devices; the last tab is forgotten when the browser closes.</small>
+            </p>
+          </div>
+        </div>
+
+        <div class="promises">
+          <div class="promise"><strong>No data collected</strong>Nothing about you or your tabs is gathered, sold or shared.</div>
+          <div class="promise"><strong>No network requests</strong>No analytics, no ads, no remote code.</div>
+          <div class="promise"><strong>Every line is public</strong>Read the source and the reasoning behind each decision on <a href="https://github.com/bvicenzo/new-tabs-at-end">GitHub</a>.</div>
+          <div class="promise"><strong>Fully tested</strong>100% test coverage, checked on every change.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="install" class="install">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Install</span>
+          <h2>Ready when you are.</h2>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Chrome Web Store</h3>
+            <!-- When the listing is live, replace this badge with:
+                 <a class="button button-primary" href="https://chromewebstore.google.com/detail/EXTENSION_ID">Add to Chrome</a> -->
+            <span class="soon">Coming soon</span>
+            <p>The one-click install, with automatic updates. Works in Chrome 102 or later.</p>
+          </div>
+          <div class="card">
+            <h3>From source</h3>
+            <p>Needs Node 26.</p>
+            <pre><code>git clone https://github.com/bvicenzo/new-tabs-at-end
+cd new-tabs-at-end
+npm install
+npm run build</code></pre>
+            <ol>
+              <li>Open <code>chrome://extensions</code> and turn on <strong>Developer mode</strong>.</li>
+              <li>Click <strong>Load unpacked</strong> and pick the <code>dist/</code> folder.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="soft">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Questions</span>
+          <h2>Good to know.</h2>
+        </div>
+
+        <div class="faq">
+          <details>
+            <summary>Where are the options?</summary>
+            <p>Right-click the extension in Chrome’s extensions menu and choose <strong>Options</strong>, or open <code>chrome://extensions</code>, then <strong>Details</strong> and <strong>Extension options</strong>.</p>
+          </details>
+          <details>
+            <summary>The shortcut does nothing.</summary>
+            <p>Chrome leaves it unassigned when another extension already uses <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>G</kbd>. The options page shows the current shortcut and takes you to <code>chrome://extensions/shortcuts</code> to change it. It also does nothing when the last placed tab was opened outside a group, since there is no group to send it back to.</p>
+          </details>
+          <details>
+            <summary>Why isn’t a duplicated tab moved?</summary>
+            <p>Chrome creates a duplicate the way it restores a tab, so it stays next to the original — usually right where you want it.</p>
+          </details>
+          <details>
+            <summary>What about tabs opened by other extensions?</summary>
+            <p>They count as new and go to the end, like the ones you open yourself.</p>
+          </details>
+          <details>
+            <summary>Does it work in Edge, Brave or other Chromium browsers?</summary>
+            <p>It relies only on Chromium’s standard tab APIs, so it should. It is developed and tested on Chrome and Chromium.</p>
+          </details>
+          <details>
+            <summary>Is it really free?</summary>
+            <p>Yes. No paid tier, no ads, no data collection. It was made to scratch an itch, and it is shared in case you have the same one.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <a class="brand" href="./"><img src="assets/icon.svg" alt="" width="28" height="28"><span>New Tabs <em>at End</em></span></a>
+      <nav aria-label="Footer">
+        <a href="privacy.html">Privacy policy</a>
+        <a href="https://github.com/bvicenzo/new-tabs-at-end">Source code</a>
+        <a href="https://github.com/bvicenzo/new-tabs-at-end/issues">Report a problem</a>
+        <a href="pt-br/" hreflang="pt-BR" lang="pt-BR">Português</a>
+      </nav>
+      <p>Made by <a href="https://github.com/bvicenzo">Bruno Vicenzo</a>. Open source under the <a href="https://github.com/bvicenzo/new-tabs-at-end/blob/master/LICENSE">GPL-3.0</a>.</p>
+    </div>
+  </footer>
+</body>
+</html>

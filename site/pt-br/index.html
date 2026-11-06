@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>New Tabs at End — só as abas realmente novas vão para o fim</title>
+  <meta name="description" content="Extensão gratuita para o Chrome que leva as abas que você abre para o fim da janela e deixa as abas restauradas e seus grupos exatamente onde o Chrome os coloca. Nenhum dado coletado.">
+  <meta name="theme-color" content="#0F172A">
+  <link rel="canonical" href="https://bvicenzo.github.io/new-tabs-at-end/pt-br/">
+  <link rel="alternate" hreflang="en" href="https://bvicenzo.github.io/new-tabs-at-end/">
+  <link rel="alternate" hreflang="pt-BR" href="https://bvicenzo.github.io/new-tabs-at-end/pt-br/">
+  <link rel="alternate" hreflang="x-default" href="https://bvicenzo.github.io/new-tabs-at-end/">
+  <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="New Tabs at End">
+  <meta property="og:description" content="Abas novas vão para o fim. Abas restauradas e seus grupos ficam onde estão.">
+  <meta property="og:url" content="https://bvicenzo.github.io/new-tabs-at-end/pt-br/">
+  <meta property="og:image" content="https://bvicenzo.github.io/new-tabs-at-end/assets/og-image.png">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Pular para o conteúdo</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="./"><img src="../assets/icon.svg" alt="" width="32" height="32"><span>New Tabs <em>at End</em></span></a>
+      <nav class="site-nav" aria-label="Principal">
+        <a class="optional" href="#how">Como funciona</a>
+        <a class="optional" href="#privacy">Privacidade</a>
+        <a href="https://github.com/bvicenzo/new-tabs-at-end">GitHub</a>
+        <a class="lang" href="../" hreflang="en" lang="en" title="Read in English">EN</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="wrap">
+        <div>
+          <p class="eyebrow"><span>Gratuita</span><span>Código aberto</span><span>Nenhum dado coletado</span></p>
+          <h1>Abas novas vão para o fim. <em>O resto fica onde está.</em></h1>
+          <p class="lead">
+            Uma extensão para o Chrome que leva as abas que você abre — <kbd>Ctrl</kbd>+<kbd>T</kbd>, links, favoritos —
+            para o fim da janela, e deixa as abas restauradas e os seus grupos de abas exatamente onde o Chrome os coloca.
+          </p>
+          <div class="actions">
+            <a class="button button-primary" href="#install">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+              Adicionar ao Chrome
+            </a>
+            <a class="button button-ghost" href="https://github.com/bvicenzo/new-tabs-at-end">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg>
+              Ver o código
+            </a>
+          </div>
+          <p class="fineprint">Chrome 102 ou mais recente · Português e English</p>
+        </div>
+
+        <div class="browser" role="img" aria-label="Uma janela do navegador: um link aberto de uma aba do grupo Work vai para o fim da faixa de abas, e o grupo continua inteiro.">
+          <span class="keys">Ctrl + clique</span>
+          <div class="strip">
+            <span class="chip">Work</span>
+            <span class="tab"></span>
+            <span class="tab active"></span>
+            <span class="tab"></span>
+            <span class="slot"></span>
+            <span class="tab new">Nova aba</span>
+            <span class="newtab-plus">+</span>
+            <span class="group-line"></span>
+          </div>
+          <div class="toolbar"><i></i><i></i><b></b></div>
+          <div class="page"><i></i><i></i><i></i><i></i><div class="cards"><i></i><i></i></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="why">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Por que mais uma</span>
+          <h2>As outras extensões de “abas novas no fim” movem demais.</h2>
+          <p>
+            Elas empurram para o fim toda aba que o Chrome cria — inclusive as que ele está trazendo de volta. Reabra o
+            navegador com “Continuar de onde parou” e os seus grupos se desfazem. Traga uma aba de volta com
+            <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>T</kbd> e ela vai parar no fim, e não onde estava.
+          </p>
+        </div>
+
+        <div class="grid-2 compare">
+          <div class="card bad">
+            <span class="label">Uma extensão comum, depois de reiniciar</span>
+            <div class="mini" aria-hidden="true">
+              <span class="c">Work</span><span class="t g"></span><span class="t g"></span><span class="t"></span><span class="t"></span><span class="t stray"></span>
+            </div>
+            <p>A primeira aba de um grupo é recriada fora dele, e a extensão a empurra para o fim. O grupo fica com uma aba a menos, e essa aba vai parar no lugar errado.</p>
+          </div>
+          <div class="card good">
+            <span class="label">New Tabs at End, depois de reiniciar</span>
+            <div class="mini" aria-hidden="true">
+              <span class="c">Work</span><span class="t g"></span><span class="t g"></span><span class="t g"></span><span class="t"></span><span class="t"></span>
+            </div>
+            <p>As abas restauradas são reconhecidas e ficam onde estão. A janela volta exatamente como você deixou — grupos, ordem e tudo mais.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" class="soft">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Como funciona</span>
+          <h2>Só as abas que você abre são movidas.</h2>
+          <p>Tudo o que o Chrome traz de volta fica onde o Chrome colocou.</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Vai para o fim</h3>
+            <p style="margin-bottom:18px">Uma aba que você acabou de pedir.</p>
+            <ul class="rule-list">
+              <li><span><kbd>Ctrl</kbd>+<kbd>T</kbd> ou o botão <strong>+</strong></span></li>
+              <li><span>Um link aberto em nova aba<small>Clique do meio, Ctrl+clique, links que abrem nova aba, <code>window.open</code></small></span></li>
+              <li><span>Um favorito aberto em nova aba</span></li>
+              <li><span><kbd>Alt</kbd>+<kbd>Enter</kbd> na barra de endereço</span></li>
+              <li><span>Um link aberto a partir de outro aplicativo</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Fica onde está</h3>
+            <p style="margin-bottom:18px">Uma aba que o Chrome está trazendo de volta.</p>
+            <ul class="rule-list stay">
+              <li><span>Reabrir o navegador com uma sessão salva</span></li>
+              <li><span><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>T</kbd> em uma aba ou em uma janela</span></li>
+              <li><span>Duplicar uma aba<small>Ela fica ao lado da original.</small></span></li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="note">
+          <span>
+            <strong>Como ela diferencia uma da outra.</strong> Uma aba que o Chrome restaura já nasce sabendo o seu
+            endereço; uma aba que você abre, não. Uma única verificação, no momento em que a aba é criada: sem atrasos, sem
+            espera, sem pulo visível.
+            <a href="https://github.com/bvicenzo/new-tabs-at-end/blob/master/docs/decisions/0001-detect-new-tabs-by-empty-url.md" hreflang="en">Veja as evidências</a> (em inglês).
+          </span>
+        </p>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Recursos</span>
+          <h2>Faz uma coisa só. E deixa você ajustar.</h2>
+        </div>
+
+        <div class="grid-4">
+          <div class="card">
+            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18V8a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8"/><path d="M2 18h20"/></svg></span>
+            <h3>Seus grupos, sua escolha</h3>
+            <p>Um link aberto de uma aba em um grupo pode ir para o fim da janela (o padrão) ou para o fim do grupo. Escolha nas opções.</p>
+          </div>
+          <div class="card">
+            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></svg></span>
+            <h3>Uma tecla corrige uma aba</h3>
+            <p><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>G</kbd> leva a última aba posicionada para o outro lugar — mesmo que ela ainda esteja em segundo plano.</p>
+          </div>
+          <div class="card">
+            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span>
+            <h3>Fala a sua língua</h3>
+            <p>As opções estão em português e em inglês, seguindo o idioma do seu navegador.</p>
+          </div>
+          <div class="card">
+            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></span>
+            <h3>Pequena e discreta</h3>
+            <p>Sem popup, sem selo, sem botão na barra. Faz o seu trabalho e não atrapalha.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="privacy" class="trust">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Privacidade</span>
+          <h2>Nada sai do seu navegador.</h2>
+          <p>
+            A extensão pede três permissões e usa cada uma para uma coisa só. Ela nunca lê as páginas que você visita e
+            nunca se comunica com um servidor. <a href="privacy.html">Leia a política de privacidade</a>.
+          </p>
+        </div>
+
+        <div class="permissions">
+          <div class="permission">
+            <code>tabs</code>
+            <p>
+              Para perceber quando uma aba é criada e movê-la.
+              <small>O Chrome avisa que essa permissão pode “ler seu histórico de navegação”, porque ela dá acesso ao endereço de cada aba. A extensão só verifica se o endereço de uma aba nova ainda está vazio — ela nunca guarda nem envia um endereço.</small>
+            </p>
+          </div>
+          <div class="permission">
+            <code>tabGroups</code>
+            <p>Para manter um link no grupo, ou tirá-lo de lá, conforme a sua configuração.</p>
+          </div>
+          <div class="permission">
+            <code>storage</code>
+            <p>
+              Para lembrar a sua configuração e a última aba que ela posicionou.
+              <small>A configuração é sincronizada pelo Chrome entre os seus dispositivos; a última aba é esquecida quando o navegador fecha.</small>
+            </p>
+          </div>
+        </div>
+
+        <div class="promises">
+          <div class="promise"><strong>Nenhum dado coletado</strong>Nada sobre você ou suas abas é coletado, vendido ou compartilhado.</div>
+          <div class="promise"><strong>Nenhuma requisição de rede</strong>Sem analytics, sem anúncios, sem código remoto.</div>
+          <div class="promise"><strong>Cada linha é pública</strong>Leia o código e o porquê de cada decisão no <a href="https://github.com/bvicenzo/new-tabs-at-end">GitHub</a>.</div>
+          <div class="promise"><strong>Totalmente testada</strong>100% de cobertura de testes, verificada a cada mudança.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="install" class="install">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Instalar</span>
+          <h2>Pronta quando você estiver.</h2>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Chrome Web Store</h3>
+            <!-- Quando a página na loja estiver no ar, troque este selo por:
+                 <a class="button button-primary" href="https://chromewebstore.google.com/detail/EXTENSION_ID">Adicionar ao Chrome</a> -->
+            <span class="soon">Em breve</span>
+            <p>A instalação com um clique, com atualizações automáticas. Funciona no Chrome 102 ou mais recente.</p>
+          </div>
+          <div class="card">
+            <h3>A partir do código</h3>
+            <p>Requer Node 26.</p>
+            <pre><code>git clone https://github.com/bvicenzo/new-tabs-at-end
+cd new-tabs-at-end
+npm install
+npm run build</code></pre>
+            <ol>
+              <li>Abra <code>chrome://extensions</code> e ative o <strong>Modo do desenvolvedor</strong>.</li>
+              <li>Clique em <strong>Carregar sem compactação</strong> e escolha a pasta <code>dist/</code>.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="soft">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Perguntas</span>
+          <h2>Bom saber.</h2>
+        </div>
+
+        <div class="faq">
+          <details>
+            <summary>Onde ficam as opções?</summary>
+            <p>Clique com o botão direito na extensão, no menu de extensões do Chrome, e escolha <strong>Opções</strong>. Ou abra <code>chrome://extensions</code>, depois <strong>Detalhes</strong> e <strong>Opções da extensão</strong>.</p>
+          </details>
+          <details>
+            <summary>O atalho não faz nada.</summary>
+            <p>O Chrome deixa o atalho sem tecla quando outra extensão já usa <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>G</kbd>. A página de opções mostra o atalho atual e leva você a <code>chrome://extensions/shortcuts</code> para trocá-lo. Ele também não faz nada quando a última aba posicionada foi aberta fora de um grupo, porque não há grupo para onde mandá-la de volta.</p>
+          </details>
+          <details>
+            <summary>Por que uma aba duplicada não é movida?</summary>
+            <p>O Chrome cria uma duplicata do mesmo jeito que restaura uma aba, então ela fica ao lado da original — normalmente bem onde você quer.</p>
+          </details>
+          <details>
+            <summary>E as abas abertas por outras extensões?</summary>
+            <p>Elas contam como novas e vão para o fim, como as que você mesmo abre.</p>
+          </details>
+          <details>
+            <summary>Funciona no Edge, no Brave ou em outros navegadores baseados no Chromium?</summary>
+            <p>Ela só usa as APIs de abas padrão do Chromium, então deve funcionar. Ela é desenvolvida e testada no Chrome e no Chromium.</p>
+          </details>
+          <details>
+            <summary>É gratuita mesmo?</summary>
+            <p>Sim. Sem plano pago, sem anúncios, sem coleta de dados. Ela nasceu para resolver um incômodo, e está aqui caso você tenha o mesmo.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <a class="brand" href="./"><img src="../assets/icon.svg" alt="" width="28" height="28"><span>New Tabs <em>at End</em></span></a>
+      <nav aria-label="Rodapé">
+        <a href="privacy.html">Política de privacidade</a>
+        <a href="https://github.com/bvicenzo/new-tabs-at-end">Código-fonte</a>
+        <a href="https://github.com/bvicenzo/new-tabs-at-end/issues">Relatar um problema</a>
+        <a href="../" hreflang="en" lang="en">English</a>
+      </nav>
+      <p>Feita por <a href="https://github.com/bvicenzo">Bruno Vicenzo</a>. Código aberto sob a <a href="https://github.com/bvicenzo/new-tabs-at-end/blob/master/LICENSE">GPL-3.0</a>.</p>
+    </div>
+  </footer>
+</body>
+</html>
