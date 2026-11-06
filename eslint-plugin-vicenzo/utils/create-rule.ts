@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import { ESLintUtils } from '@typescript-eslint/utils';
 
 const RULES_DOCUMENTATION = 'https://github.com/bvicenzo/new-tabs-at-end/blob/master/eslint-plugin-vicenzo/README.md';

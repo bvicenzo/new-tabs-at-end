@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import { AST_NODE_TYPES, type TSESTree } from '@typescript-eslint/utils';
 
 // Words that open a scenario: a context with no scenario around it starts with one of them.

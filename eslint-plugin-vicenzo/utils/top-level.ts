@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import type { TSESTree } from '@typescript-eslint/utils';
 
 import { enclosingGroup } from './test-blocks';

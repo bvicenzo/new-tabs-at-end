@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import { AST_NODE_TYPES, type TSESTree } from '@typescript-eslint/utils';
 
 type FunctionNode = TSESTree.ArrowFunctionExpression | TSESTree.FunctionExpression;

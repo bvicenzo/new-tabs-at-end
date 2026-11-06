@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 export type Placement = 'window' | 'group';
 
 const DEFAULT_PLACEMENT: Placement = 'window';

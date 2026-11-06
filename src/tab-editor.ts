@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import { isClosedTabError, isDragError } from './chrome-errors';
 
 export type EditOutcome = 'done' | 'closed' | 'gaveUp';

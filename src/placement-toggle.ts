@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import { isClosedTabError, isMissingGroupError } from './chrome-errors';
 import { TAB_GROUP_ID_NONE } from './destination';
 import type { PlacedTabMemory } from './placed-tab-memory';

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import { simpleTraverse } from '@typescript-eslint/typescript-estree';
 import { AST_NODE_TYPES, type TSESTree } from '@typescript-eslint/utils';
 

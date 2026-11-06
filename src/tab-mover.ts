@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import { endOfGroupIndex, TAB_GROUP_ID_NONE } from './destination';
 import type { TabEditor } from './tab-editor';
 

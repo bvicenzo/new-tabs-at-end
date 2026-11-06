@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import { delay } from './delay';
 import { PlacedTabMemory } from './placed-tab-memory';
 import { PlacementToggle } from './placement-toggle';

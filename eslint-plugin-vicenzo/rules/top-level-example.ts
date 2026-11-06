@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import { createRule } from '../utils/create-rule';
 import { isTableHead, testBlockKind } from '../utils/test-blocks';
 import { isAtTopLevel } from '../utils/top-level';

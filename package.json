@@ -3,12 +3,19 @@
   "version": "0.0.0",
   "private": true,
   "description": "Chrome extension that moves only genuinely new tabs to the end of the window",
+  "license": "GPL-3.0-or-later",
+  "author": "Bruno Vicenzo",
+  "homepage": "https://bvicenzo.github.io/new-tabs-at-end/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bvicenzo/new-tabs-at-end.git"
+  },
   "type": "module",
   "engines": {
     "node": ">=26"
   },
   "scripts": {
-    "build": "rm -rf dist && esbuild src/background.ts src/options.ts --bundle --format=esm --outdir=dist && cp -r static/. dist/",
+    "build": "rm -rf dist && esbuild src/background.ts src/options.ts --bundle --format=esm --outdir=dist --banner:js='/*! New Tabs at End | Copyright (C) 2026 Bruno Vicenzo | GPL-3.0-or-later | https://github.com/bvicenzo/new-tabs-at-end */' && cp -r static/. LICENSE dist/",
     "lint": "eslint .",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 // Chrome refuses tab edits with plain messages, measured in docs/decisions/0008; a refusal is read through its text,
 // whatever value the rejected promise carries.
 const CLOSED_TAB_ERROR = 'No tab with id';

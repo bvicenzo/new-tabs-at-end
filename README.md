@@ -71,3 +71,14 @@ Conventional Commit. While the repository is private the checks do not block the
 
 Architecture decisions live in [`docs/decisions/`](docs/decisions/); the lint rules and where each comes from are in
 [0006](docs/decisions/0006-lint-mapping-from-rubocop-vicenzo.md).
+
+## License
+
+New Tabs at End — Copyright (C) 2026 Bruno Vicenzo
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
+License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later
+version. It is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See [`LICENSE`](LICENSE) for the full text.
+
+Redistributions, modified or not, must keep this notice and be released under the same license, with their source.

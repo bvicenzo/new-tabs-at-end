@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 // chrome.tabGroups.TAB_GROUP_ID_NONE, written out so the rules are testable without the extension runtime.
 export const TAB_GROUP_ID_NONE = -1;
 

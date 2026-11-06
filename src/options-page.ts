@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import { TOGGLE_PLACEMENT_COMMAND } from './placement-toggle';
 import { type Placement, readPlacement, writePlacement } from './settings';
 

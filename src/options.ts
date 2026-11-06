@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import { OptionsPage } from './options-page';
 
 const optionsPage = new OptionsPage({

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import { createRule } from '../utils/create-rule';
 import { countedLines } from '../utils/counted-lines';
 import { callbackOf, testBlockKind } from '../utils/test-blocks';

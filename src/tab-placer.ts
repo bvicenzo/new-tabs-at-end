@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import { TAB_GROUP_ID_NONE } from './destination';
 import { isNewTab, type PlaceableTab } from './new-tab';
 import type { PlacedTabMemory } from './placed-tab-memory';

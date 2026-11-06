@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 // Runs tasks one at a time, in the order they were queued: tabs opened together keep their order at the end.
 export class SerialQueue {
   private tail: Promise<unknown> = Promise.resolve();

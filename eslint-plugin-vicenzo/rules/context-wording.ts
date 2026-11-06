@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import { createRule } from '../utils/create-rule';
 import { literalTitle, SCENARIO_CONTINUERS, SCENARIO_OPENERS } from '../utils/context-title';
 import { isTableHead, testBlockKind } from '../utils/test-blocks';

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 // chrome.tabs.TAB_ID_NONE, written out so the rule is testable without the extension runtime.
 const TAB_ID_NONE = -1;
 
