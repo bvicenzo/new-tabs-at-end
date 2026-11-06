@@ -66,11 +66,18 @@ npm run build          # esbuild bundle and static files into dist/
 ```
 
 CI runs `lint`, `typecheck`, `test:coverage` and `build` on every pull request and checks that its title is a
-Conventional Commit. While the repository is private the checks do not block the merge
-([0007](docs/decisions/0007-ci-checks-are-advisory-while-private.md)).
+Conventional Commit; both checks are required to merge ([0011](docs/decisions/0011-ci-checks-are-required.md)).
 
 Architecture decisions live in [`docs/decisions/`](docs/decisions/); the lint rules and where each comes from are in
 [0006](docs/decisions/0006-lint-mapping-from-rubocop-vicenzo.md).
+
+## Releasing
+
+release-please turns the Conventional Commits merged into `master` into a release pull request with the next version
+and the changelog; merging it tags the release and attaches the extension package (`new-tabs-at-end-<version>.zip`).
+The package goes to the Chrome Web Store by hand: the steps and the listing text are in
+[`docs/publishing.md`](docs/publishing.md). `master` accepts changes only through pull requests with green checks
+([0011](docs/decisions/0011-ci-checks-are-required.md)).
 
 ## License
 
