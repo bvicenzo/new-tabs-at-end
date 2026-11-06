@@ -8,8 +8,8 @@ hand.
 1. Merge pull requests with Conventional Commit titles. release-please keeps a pull request named
    `chore(master): release <version>` up to date with the next version and the `CHANGELOG.md` entries: `feat` bumps the
    minor version, `fix` the patch, and `!` or a `BREAKING CHANGE:` footer the major.
-2. Merge that pull request. It carries no CI checks, so merge it as an admin bypassing the ruleset
-   ([0011](decisions/0011-ci-checks-are-required.md)).
+2. Merge that pull request once its checks pass. release-please opens it with the `RELEASE_PLEASE_TOKEN` secret, so
+   the CI runs on it like on any other pull request ([0011](decisions/0011-ci-checks-are-required.md)).
 3. The `Release` workflow tags the version, creates the GitHub release and attaches `new-tabs-at-end-<version>.zip`.
    The version in `static/manifest.json` follows the one in `package.json`.
 
