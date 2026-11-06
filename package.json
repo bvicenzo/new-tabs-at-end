@@ -16,6 +16,7 @@
   },
   "scripts": {
     "build": "rm -rf dist && esbuild src/background.ts src/options.ts --bundle --format=esm --outdir=dist --banner:js='/*! New Tabs at End | Copyright (C) 2026 Bruno Vicenzo | GPL-3.0-or-later | https://github.com/bvicenzo/new-tabs-at-end */' && cp -r static/. LICENSE dist/",
+    "package": "npm run build && cd dist && zip -qr \"../new-tabs-at-end-$npm_package_version.zip\" .",
     "lint": "eslint .",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",

@@ -1,6 +1,6 @@
 # 0007 — CI checks are advisory while the repository is private
 
-- **Status:** accepted
+- **Status:** superseded by [0011](0011-ci-checks-are-required.md)
 - **Date:** 2026-11-05
 
 ## Context
