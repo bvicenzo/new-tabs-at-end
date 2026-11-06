@@ -13,8 +13,9 @@ hand.
 3. The `Release` workflow tags the version, creates the GitHub release and attaches `new-tabs-at-end-<version>.zip`.
    The version in `static/manifest.json` follows the one in `package.json`.
 
-The first release is forced to 1.0.0 by `release-as` in `release-please-config.json`. **Remove that line right after
-1.0.0 is released**, or every later release pull request will propose 1.0.0 again.
+To force a specific version, add `"release-as": "<version>"` to the package in `release-please-config.json` and remove
+it right after that version is released, or every later release pull request will propose it again. The first release,
+1.0.0, was cut that way.
 
 ## Uploading to the Chrome Web Store
 
