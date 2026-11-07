@@ -7,7 +7,8 @@
 
 # New Tabs at End
 
-**Website:** [bvicenzo.github.io/new-tabs-at-end](https://bvicenzo.github.io/new-tabs-at-end/) ·
+**[Install from the Chrome Web Store](https://chromewebstore.google.com/detail/new-tabs-at-end/dklpgjdablbamieaplnbelccojdflhdi)** ·
+[Website](https://bvicenzo.github.io/new-tabs-at-end/) ·
 [Privacy policy](https://bvicenzo.github.io/new-tabs-at-end/privacy.html)
 
 A Chrome extension that moves **only genuinely new tabs** to the end of the window — and leaves restored tabs,

@@ -99,7 +99,7 @@ and duplicated tabs where Chrome places them.
 **Data usage:** tick none of the data categories — the extension collects no user data — and certify the three
 disclosures (no selling, no use unrelated to the single purpose, no use for creditworthiness or lending).
 
-## After the listing is approved
+## The listing
 
-- Replace the "Coming soon" badge in `site/index.html` and `site/pt-br/index.html` with the store link (the comment
-  next to it shows the markup), and point the hero's "Add to Chrome" button at the store.
+The extension is live at <https://chromewebstore.google.com/detail/new-tabs-at-end/dklpgjdablbamieaplnbelccojdflhdi>, item id `dklpgjdablbamieaplnbelccojdflhdi`. The website and the README link to it;
+later releases are uploaded to the same item as new packages.
