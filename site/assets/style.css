@@ -539,6 +539,7 @@ section.soft { background: var(--bg-soft); border-block: 1px solid var(--line); 
 /* Install. */
 
 .install .card { display: flex; flex-direction: column; gap: 14px; }
+.install .card .button { align-self: flex-start; }
 .install ol { margin: 0; padding-left: 20px; color: var(--text-2); font-size: 16px; display: grid; gap: 8px; }
 .install pre {
   margin: 0;
@@ -548,18 +549,6 @@ section.soft { background: var(--bg-soft); border-block: 1px solid var(--line); 
   color: var(--slate-5);
   font: 14px/1.6 var(--mono);
   overflow-x: auto;
-}
-.soon {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  align-self: flex-start;
-  padding: 4px 12px;
-  border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--accent-text);
-  font-size: 14px;
-  font-weight: 700;
 }
 
 /* FAQ. */
