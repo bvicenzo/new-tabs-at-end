@@ -28,8 +28,8 @@
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/chrome": "^0.3.7",
     "@types/node": "^26.6.6",
-    "@typescript-eslint/typescript-estree": "^8.72.1",
-    "@typescript-eslint/utils": "^8.72.1",
+    "@typescript-eslint/typescript-estree": "^8.72.2",
+    "@typescript-eslint/utils": "^8.72.2",
     "@vitest/coverage-v8": "^5.1.0",
     "@vitest/eslint-plugin": "^1.6.28",
     "esbuild": "^0.28.2",
@@ -38,7 +38,7 @@
     "happy-dom": "^21.0.4",
     "jiti": "^2.7.0",
     "typescript": "~6.0.3",
-    "typescript-eslint": "^8.72.1",
+    "typescript-eslint": "^8.72.2",
     "vitest": "^5.1.0"
   },
   "allowScripts": {
